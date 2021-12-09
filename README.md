@@ -6,15 +6,15 @@ Building Steps:
 - `sudo apt update && sudo apt upgrade` in Terminal
 - Change /boot/config.txt according to https://www.waveshare.com/wiki/7inch_DSI_LCD
 
-Comment out this: \
+Comment out this:
 ```
-#camera_auto_detect=1 \
+#camera_auto_detect=1
 #dtoverlay=vc4-kms-v3d
 ```
 
-Insert this under [all]: \
+Insert this under [all]:
 ```
-dtoverlay=vc4-fkms-v3d \
+dtoverlay=vc4-fkms-v3d
 start_x=1
 ```
 
