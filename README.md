@@ -12,8 +12,8 @@ Comment out this: \
 #dtoverlay=vc4-kms-v3d
 ```
 
-```
 Insert this under [all]: \
+```
 dtoverlay=vc4-fkms-v3d \
 start_x=1
 ```
