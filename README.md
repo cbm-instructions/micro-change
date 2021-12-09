@@ -21,3 +21,7 @@ start_x=1
 - Shutdown Raspberry Pi
 - Connect DSI Display and boot up
 - The DSI Display should work now
+- <Insert Arduino Part here>
+- Connect Arduino with Raspberry Pi
+- `sudo apt install arduino` on Raspberry Pi
+- Load Arduino Project onto Arduino
