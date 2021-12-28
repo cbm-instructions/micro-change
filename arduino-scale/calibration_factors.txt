@@ -1,0 +1,4 @@
+LoadCell_1 calFaktor = 117.95
+LoadCell_2 calFaktor = 107.90
+
+Single Calibration = 138.00
