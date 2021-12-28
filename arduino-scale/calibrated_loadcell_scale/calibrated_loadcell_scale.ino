@@ -83,7 +83,7 @@ void loop() {
       //Serial.print(a);
       //Serial.print("    Load_cell 2 output val: ");
       //Serial.println(b);
-      Serial.print("Weight: ~");
+      //Serial.print("Weight: ~");
       Serial.println((a+b)/2);
       newDataReady = 0;
       t = millis();
