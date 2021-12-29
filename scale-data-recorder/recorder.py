@@ -4,7 +4,11 @@ import os
 from pathlib import Path
 from typing import Optional
 
-debug = os.environ["DEBUG"] == "true"
+
+try:
+    debug = os.environ["DEBUG"] == "true"
+except:
+    debug = False
 
 print(f"DEBUG={debug}")
 
@@ -26,7 +30,7 @@ storage_folder    = os.path.join(cwd, STORE_FOLDER_NAME)
 # Values for weight calculation
 NEW_RELEVANT_THRESHOLD          = 2.0  # Grams
 RESET_RELEVANT_WEIGHT_THRESHOLD = 1.5  # Grams
-RESET_RELEVANT_WEIGHT_TIME      = 5   # Seconds
+RESET_RELEVANT_WEIGHT_TIME      = 60   # Seconds
 
 last_relevant_weight = 0.0
 
