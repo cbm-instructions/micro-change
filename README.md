@@ -1,3 +1,11 @@
+# Anleitung
+1. Einleitung
+2. Material und Werkzeug [Aldin]
+3. Anleitung für Kasten [Aldin]
+4. Anleitung für Waage
+   - Schaltplan (Fritzing, AutoCAD)
+5. Anleitung für Installation
+
 # MicroChangeProjectBen
 A smart bin that helps you by reducing your garbage production
 
