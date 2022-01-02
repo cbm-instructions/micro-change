@@ -1,4 +1,4 @@
-import { Column  } from '@ant-design/charts';
+import { Line  } from '@ant-design/charts';
 import {useState} from "react";
 import Title from "antd/es/typography/Title";
 
@@ -7,8 +7,8 @@ function convertToChartFormat(data){
 
     data.forEach(function (el){
         formattedData.push({
-            week: el.week,
-            weight: el.weight
+            week: el.week-1,
+            weight: parseFloat(Number(el.totalWeight/1000).toFixed(2)),
         })
     });
 
@@ -39,60 +39,42 @@ const StatisticChart = () => {
         throw error;
     });
 
+    console.log(chartData)
+
     const data = [
-        {
-            type: '家具家电',
-            sales: 38,
-        },
-        {
-            type: '粮油副食',
-            sales: 52,
-        },
-        {
-            type: '生鲜水果',
-            sales: 61,
-        },
-        {
-            type: '美容洗护',
-            sales: 145,
-        },
-        {
-            type: '母婴用品',
-            sales: 48,
-        },
-        {
-            type: '进口食品',
-            sales: 38,
-        },
-        {
-            type: '食品饮料',
-            sales: 38,
-        },
-        {
-            type: '家庭清洁',
-            sales: 38,
-        },
-    ];
+    {week: 0, weight: 0.70},
+    {week: 1, weight: 1.09},
+    {week: 2, weight: 0.89}
+    ]
+
     const config = {
         data: chartData,
-        xField: 'week',
-        yField: 'weight',
-        seriesField: 'type',
+        padding: 'auto',
+        title: {
+            visible: true,
+            text: "Statistik des Müllverbrauchs"
+        },
+        xField: "week",
+        yField: "weight",
+        color: "#2593fc",
         marginRatio: 0,
-        label: {
-            position: 'middle',
-            layout: [
-                { type: 'interval-adjust-position' },
-                { type: 'interval-hide-overlap' },
-                { type: 'adjust-color' },
-            ],
+        smooth: true,
+        point: {
+            visible:true,
+            size: 5,
+            shape:"diamond",
+            style:{
+                fill: "white",
+                stroke: "#2593fc",
+                lineWidth: 2
+            }
         },
     };
 
     if(chartData === undefined || chartData.length === 0){
         return (<Title level={2}>No data available. Cannot export</Title>);
     }else{
-        return (<Column {...config} />);
+        return (<Line {...config} />);
     }
 
 }
