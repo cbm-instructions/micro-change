@@ -1,10 +1,10 @@
 # Anleitung
-1. Einleitung
-2. Material und Werkzeug
-3. Anleitung für Kasten
-4. Anleitung für Waage
+1. Einleitung  -> Jan
+2. Material und Werkzeug  -> Merve
+3. Anleitung für Kasten  -> Aldin
+4. Anleitung für Waage  -> Jan
    - Schaltplan (Fritzing, AutoCAD)
-5. Anleitung für Installation
+5. Anleitung für Installation  -> Fabi
 
 # MicroChangeProjectBen
 A smart bin that helps you by reducing your garbage production
