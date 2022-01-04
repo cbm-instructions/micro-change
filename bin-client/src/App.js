@@ -1,5 +1,5 @@
 import "antd/dist/antd.css";
-import { message, Row, Col, Tabs, Icon, Button } from 'antd';
+import { message, Row, Col, Tabs, Button } from 'antd';
 import { TableOutlined, LineChartOutlined, PictureOutlined } from '@ant-design/icons';
 import StatisticTable from "./components/StatisticTable";
 import {startFileWatcher} from "./utils/FileWatcher";

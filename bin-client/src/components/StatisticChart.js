@@ -16,36 +16,27 @@ function convertToChartFormat(data){
 }
 
 const StatisticChart = () => {
-    let [chartData,setChartData] = useState([]);
-
     const fs = window.require("fs");
     const fileWatcher = window.require("chokidar");
     const dirPath = "./data/";
+
+    let [chartData,setChartData] = useState(convertToChartFormat(JSON.parse(fs.readFileSync(dirPath+"table_data.txt","utf-8"))));
 
     const watcher = fileWatcher.watch(dirPath, {
         persistent: true
     });
 
-    watcher.
-    on('add', function() {
+    watcher.on('add', function() {
         const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
         chartData = convertToChartFormat(JSON.parse(content));
-    }).
-    on('change', function() {
+        console.log("onAdd")
+    }).on('change', function() {
         const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
         setChartData(convertToChartFormat(JSON.parse(content)));
-    }).
-    on('error', function(error) {
+        console.log("OnChange")
+    }).on('error', function(error) {
         throw error;
     });
-
-    console.log(chartData)
-
-    const data = [
-    {week: 0, weight: 0.70},
-    {week: 1, weight: 1.09},
-    {week: 2, weight: 0.89}
-    ]
 
     const config = {
         data: chartData,

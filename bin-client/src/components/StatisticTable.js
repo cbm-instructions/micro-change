@@ -3,11 +3,11 @@ import {useState} from "react";
 
 const StatisticTable = () => {
 
-    let [tableData,setTableData] = useState([]);
-
     const fs = window.require("fs");
     const fileWatcher = window.require("chokidar");
     const dirPath = "./data/";
+
+    let [tableData,setTableData] = useState(JSON.parse(fs.readFileSync(dirPath+"table_data.txt","utf-8")));
 
     const watcher = fileWatcher.watch(dirPath, {
         persistent: true
@@ -17,10 +17,12 @@ const StatisticTable = () => {
     on('add', function() {
         const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
         tableData = JSON.parse(content);
+        console.log("onAdd")
     }).
     on('change', function(path) {
         const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
         setTableData(JSON.parse(content));
+        console.log("OnChange")
     }).
     on('error', function(error) {
         throw error;
