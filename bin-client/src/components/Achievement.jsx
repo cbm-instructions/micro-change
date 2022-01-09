@@ -3,7 +3,7 @@ import {getImageForAchievement} from "../utils/utils";
 const Achievement = ({ points, title }) => {
 
     const roundImgStyle = {
-        //borderRadius:"50%",
+        borderRadius:"50%",
         float:"left",
         border: "1px solid"
     }

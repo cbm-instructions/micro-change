@@ -1,3 +1,7 @@
+/**
+ * Titel aller Achievments als Konstanten gespeichert
+ * @type {{RichtigerWeg: string, Baumtoeter: string, FalscherWeg: string, Vorbild: string, AllerAnfang: string, WinStreak: string, AllesBleibt: string}}
+ */
 export const AchievementNames = {
     Baumtoeter:"Baumtöter",
     Vorbild:"Vorbild",

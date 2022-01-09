@@ -10,12 +10,22 @@ import {AchievementNames} from "./achievementNames";
 import {message} from "antd";
 import Achievement from "../components/Achievement";
 
+/**
+ * Erzeugt popup von Achievement
+ * @param title
+ * @param description
+ */
 export function showAchievement({ title, description }) {
     message.open({
         content: <Achievement title={title} description={description}/>,
     });
 }
 
+/**
+ * Findet Bild von Achievement nach Titel und liefert es
+ * @param title
+ * @returns {null}
+ */
 export const getImageForAchievement = (title) => {
     let img;
 
@@ -49,6 +59,11 @@ export const getImageForAchievement = (title) => {
     return img;
 }
 
+/**
+ * Liest übergebene Datei(Path) und sendet die daten als JSON zurück
+ * @param path
+ * @returns {*[]|any}
+ */
 export const getDataFromFile = (path) => {
     const fs = window.require("fs");
     const data  = fs.readFileSync(path,"utf-8");
@@ -59,6 +74,9 @@ export const getDataFromFile = (path) => {
     }
 }
 
+/**
+ * Setzt alle statistiken zurück
+ */
 export const resetStatistics = () => {
     const fs = window.require("fs");
 

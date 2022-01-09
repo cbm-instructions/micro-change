@@ -1,6 +1,11 @@
 import {getDataFromFile, showAchievement} from "./utils";
 import {AchievementNames} from "./achievementNames";
 
+/**
+ * Findet Indizes von leeren Elementen ("")
+ * @param array
+ * @returns {*[]}
+ */
 function getEmptyElementsIndexes(array) {
     let indexes = [];
     array.forEach(function (el,index) {
@@ -11,6 +16,11 @@ function getEmptyElementsIndexes(array) {
     return indexes
 }
 
+/**
+ * Liest alle Dateien vom Arduino, sammelt die Information und packt sie als JSON Objekte in table_data.txt
+ * @param dirPath
+ * @param fs
+ */
 function getMeasuredWeightParseInFile(dirPath,fs) {
     let processedData = [];
     const fileNames = fs.readdirSync(dirPath);
@@ -70,6 +80,9 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
     });
 }
 
+/**
+ * File Watcher für die Messungs-Dateien.
+ */
 export function startFileWatcher() {
     const fs = window.require("fs");
     const fileWatcher = window.require("chokidar");
@@ -91,6 +104,10 @@ export function startFileWatcher() {
     });
 }
 
+/**
+ * Wacht über table_data.txt. Bei Änderung der Datei wird auf errungene Achievements überprüft
+ * Falls welche erreicht wurden, erscheinen sie als Pop up und werden als JSON-Objekt in reachedAchievements hinzugefügt
+ */
 export function startAchievementWatcher() {
     const fileWatcher = window.require("chokidar");
     const tableDataPath = "./data/table_data.txt";
@@ -112,7 +129,12 @@ export function startAchievementWatcher() {
     });
 }
 
-export function startAchievementListener() {
+/**
+ * Alte vorgehensweise Achievements als Popups darzustellen, falls sie erreicht werden. Useless...
+ * @param achievement
+ * @returns {boolean}
+ */
+/*export function startAchievementListener() {
     const fileWatcher = window.require("chokidar");
     const reachedAchievementsPath = "./data/reachedAchievements.txt";
 
@@ -134,8 +156,13 @@ export function startAchievementListener() {
     on('error', function(error) {
         throw error;
     });
-}
+}*/
 
+/**
+ * Schaut in reachedAchievements.txt nach, ob ein Achievement schon erreicht wurde
+ * @param achievement
+ * @returns {boolean}
+ */
 export function isAchievementReached(achievement){
 
     const reachedAchievements = getDataFromFile("./data/reachedAchievements.txt");
@@ -149,11 +176,20 @@ export function isAchievementReached(achievement){
     }
 }
 
+/**
+ * Findet Achievements nach Titel. Titel dient als unquiqe ID
+ * @param title
+ * @returns {T}
+ */
 export function getAchievementByTitle(title) {
     const achievements = getDataFromFile("./data/achievements.txt");
     return achievements.find((el) => el.title === title);
 }
 
+/**
+ * Überschreibt reachedAchievements mit neuen achievments array
+ * @param achievements
+ */
 export function writeAchievements(achievements){
     const fs = window.require("fs");
     fs.writeFileSync("./data/reachedAchievements.txt",JSON.stringify(achievements), function(err) {
@@ -163,10 +199,18 @@ export function writeAchievements(achievements){
     });
 }
 
+/**
+ * Liefert punkte aus points.txt
+ * @returns {number}
+ */
 export function getPoints(){
     return parseInt(JSON.parse(getDataFromFile("./data/points.txt")));
 }
 
+/**
+ * Speichert neue Punkte in points.txt
+ * @param points
+ */
 export function writePoints(points){
     const fs = window.require("fs");
     fs.writeFileSync("./data/points.txt",points.toString(), function(err) {
@@ -176,6 +220,10 @@ export function writePoints(points){
     });
 }
 
+/**
+ * Prüft nach ob im Array, in dem sich die gesammelten Wochen, Achievements erreicht wurden. Falls ja und werden sie angezeigt und gespeichert.
+ * @param weeks
+ */
 export function checkOnAchievementsAndChangePoints(weeks) {
 
     const reachedAchievements = getDataFromFile("./data/reachedAchievements.txt");
