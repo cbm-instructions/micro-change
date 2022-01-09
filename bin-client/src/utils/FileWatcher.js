@@ -201,6 +201,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             points-=40;
             if(!isAchievementReached(AchievementNames.Baumtoeter)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.Baumtoeter));
+                showAchievement(getAchievementByTitle(AchievementNames.Baumtoeter));
                 isReached = true;
             }
         }
@@ -209,6 +210,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             points+=50;
             if(!isAchievementReached(AchievementNames.Vorbild)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.Vorbild));
+                showAchievement(getAchievementByTitle(AchievementNames.Vorbild));
                 isReached = true;
             }
         }
@@ -228,6 +230,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             points+=1;
             if(!isAchievementReached(AchievementNames.AllesBleibt)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.AllesBleibt));
+                showAchievement(getAchievementByTitle(AchievementNames.AllesBleibt));
                 isReached = true;
             }
         }
@@ -239,6 +242,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             points+=100;
             if(!isAchievementReached(AchievementNames.WinStreak)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.WinStreak));
+                showAchievement(getAchievementByTitle(AchievementNames.WinStreak));
                 isReached = true;
             }
         }

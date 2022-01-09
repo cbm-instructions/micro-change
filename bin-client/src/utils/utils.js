@@ -10,9 +10,9 @@ import {AchievementNames} from "./achievementNames";
 import {message} from "antd";
 import Achievement from "../components/Achievement";
 
-export function showAchievement({ img, points, title, description }) {
+export function showAchievement({ title, description }) {
     message.open({
-        content: <Achievement img={img} points={points} title={title} description={description}/>,
+        content: <Achievement title={title} description={description}/>,
     });
 }
 

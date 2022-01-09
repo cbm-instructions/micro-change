@@ -17,7 +17,6 @@ function convertToTableFormat(data){
 
 const StatisticTable = () => {
     const filePath = "./data/table_data.txt";
-
     let [tableData,setTableData] = useState(getDataFromFile(filePath));
 
     useEffect(() => {
