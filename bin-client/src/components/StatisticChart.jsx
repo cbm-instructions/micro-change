@@ -1,6 +1,7 @@
 import { Line  } from '@ant-design/charts';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Title from "antd/es/typography/Title";
+import {getDataFromFile} from "../utils/utils";
 
 function convertToChartFormat(data){
     let formattedData = [];
@@ -16,27 +17,16 @@ function convertToChartFormat(data){
 }
 
 const StatisticChart = () => {
-    const fs = window.require("fs");
-    const fileWatcher = window.require("chokidar");
-    const dirPath = "./data/";
+    const filePath = "./data/table_data.txt";
 
-    let [chartData,setChartData] = useState(convertToChartFormat(JSON.parse(fs.readFileSync(dirPath+"table_data.txt","utf-8"))));
+    let [chartData,setChartData] = useState(convertToChartFormat(getDataFromFile(filePath)));
 
-    const watcher = fileWatcher.watch(dirPath, {
-        persistent: true
-    });
-
-    watcher.on('add', function() {
-        const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
-        chartData = convertToChartFormat(JSON.parse(content));
-        console.log("onAdd")
-    }).on('change', function() {
-        const content = fs.readFileSync(dirPath+"table_data.txt","utf-8");
-        setChartData(convertToChartFormat(JSON.parse(content)));
-        console.log("OnChange")
-    }).on('error', function(error) {
-        throw error;
-    });
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setChartData([...convertToChartFormat(getDataFromFile(filePath))]);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     const config = {
         data: chartData,
@@ -63,7 +53,7 @@ const StatisticChart = () => {
     };
 
     if(chartData === undefined || chartData.length === 0){
-        return (<Title level={2}>No data available. Cannot export</Title>);
+        return (<Title level={2}>No Statistic available</Title>);
     }else{
         return (<Line {...config} />);
     }

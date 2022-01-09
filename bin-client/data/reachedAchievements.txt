@@ -1,0 +1,1 @@
+[{"img":"../images/start.png","points":10,"title":"Aller Anfang ist schwer","description":"Erste Messung erhoben"},{"img":"ThumbsUp","points":20,"title":"Auf dem richtigen Weg","description":"Mindestens 5% weniger, als in der vorherigen Woche verbraucht"}]

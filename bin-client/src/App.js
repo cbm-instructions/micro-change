@@ -1,36 +1,25 @@
 import "antd/dist/antd.css";
-import { message, Row, Col, Tabs, Button } from 'antd';
-import { TableOutlined, LineChartOutlined, PictureOutlined } from '@ant-design/icons';
+import {Row, Col, Tabs, Button} from 'antd';
+import { TableOutlined, LineChartOutlined, CrownOutlined} from '@ant-design/icons';
 import StatisticTable from "./components/StatisticTable";
-import {startFileWatcher} from "./utils/FileWatcher";
+import {startAchievementWatcher, startFileWatcher} from "./utils/FileWatcher";
 import StatisticChart from "./components/StatisticChart";
-import Achievement from "./components/Achievement";
+import AchievementList from "./components/AchievementList";
+import {resetStatistics, showAchievement} from "./utils/utils";
 
 const { TabPane } = Tabs;
 
-const showAchievement= ({ img, points, title, description }) => {
-    // TODO: Show img prop
-    message.open({
-        content: <Achievement points={points} title={title} description={description} />,
-        icon: <PictureOutlined />
-    })
-}
-
-const testAchievement = `{
-    "img": "PsyschoAndreasRTL",
-    "points": 1,
-    "title": "Alles bleibt wie es ist",
-    "description": "Verbrauch +- 5% im Vergleich zur Vorwoche",
-    "trigger": " "
-  }`
-
 function App() {
     startFileWatcher();
+    startAchievementWatcher();
 
-    // TODO: Add file watcher that shows achievements when smth happens
+    const testAchievement = `{
+    "title": "Baumtöter",
+      "description": "Mehr als doppelt so viel verbraucht, wie in der vorherigen Woche"
+    }`
 
     return (
-        <div>
+        <div style={{textAlign:"center"}}>
             <Tabs size="large" defaultActiveKey="1" centered>
                 <TabPane
                     tab={
@@ -62,7 +51,23 @@ function App() {
                         <Col span={1}/>
                     </Row>
                 </TabPane>
+                <TabPane
+                    tab={
+                        <span>
+                            <CrownOutlined />
+                            Achievements
+                        </span>
+                    }
+                    key="3"
+                >
+                    <Row>
+                        <Col span={1}/>
+                        <Col span={22}><AchievementList/></Col>
+                        <Col span={1}/>
+                    </Row>
+                </TabPane>
             </Tabs>
+            <Button onClick={resetStatistics} style={{margin:"auto",marginTop:"10px"}} type="primary" danger>Reset Statistics</Button>
             <Button onClick={() => showAchievement(JSON.parse(testAchievement))}>SHOW!</Button>
         </div>
     );

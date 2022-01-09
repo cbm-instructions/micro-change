@@ -1,0 +1,37 @@
+[
+    {
+      "points": -40,
+      "title": "Baumtöter",
+      "description": "Mehr als doppelt so viel verbraucht, wie in der vorherigen Woche"
+    },
+    {
+      "points": 50,
+      "title": "Vorbild",
+      "description": "Weniger als halb so viel verbraucht, wie in der vorherigen Woche"
+    },
+    {
+      "points": 10,
+      "title": "Aller Anfang ist schwer",
+      "description": "Erste Messung erhoben"
+    },
+    {
+      "points": 1,
+      "title": "Alles bleibt wie es ist",
+      "description": "Verbrauch +-5% im Vergleich zur Vorwoche"
+    },
+    {
+      "points": 20,
+      "title": "Auf dem richtigen Weg",
+      "description": "Mindestens 5% weniger, als in der vorherigen Woche verbraucht"
+    },
+    {
+      "points": 100,
+      "title": "Winstreak",
+      "description": "3 Wochen in folge immer weniger verbraucht"
+    },
+    {
+      "points": -10,
+      "title": "Auf dem falschen Weg",
+      "description": "Verbrauch 10% mehr im Vergleich zur Vorwoche"
+    }
+]
