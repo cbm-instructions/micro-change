@@ -30,7 +30,7 @@ unsigned long t = 0;
 void setup() {
   Serial.begin(57600); delay(10);
   Serial.println();
-  Serial.println("Starting...");
+  Serial.println("STARTING");
 
   float calibrationValue_1; // calibration value load cell 1
   float calibrationValue_2; // calibration value load cell 2
