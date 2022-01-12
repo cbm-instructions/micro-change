@@ -145,6 +145,7 @@ def run_serial_stream_loop():
             if is_new_relevant_weight(weight):
                 save_and_set_new_relevant_weight(weight)
             elif should_reset_weight(weight, reset_time_tracker):
+                # TODO: Sometimes a weight is saved as reset even if it is not below the threshold
                 reset_last_relevant_weight(reset_time_tracker)
                 save_and_set_new_relevant_weight(weight, True)
             bytes = ser.readline()
