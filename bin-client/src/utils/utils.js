@@ -80,11 +80,11 @@ export const getDataFromFile = (path) => {
 export const resetStatistics = () => {
     const fs = window.require("fs");
 
-    const fileNames = fs.readdirSync("./scale-sample-data/.data/");
+    const fileNames = fs.readdirSync("./.data/");
 
     //Delete all data from scale
     fileNames.forEach((file) => {
-        fs.unlink("./scale-sample-data/.data/"+file, (err) => {
+        fs.unlink("./.data/"+file, (err) => {
             if (err) {
                 throw err;
             }

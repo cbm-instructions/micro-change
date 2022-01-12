@@ -86,7 +86,7 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
 export function startFileWatcher() {
     const fs = window.require("fs");
     const fileWatcher = window.require("chokidar");
-    const dirPath = "./scale-sample-data/.data/";
+    const dirPath = "./.data/";
 
     const watcher = fileWatcher.watch(dirPath, {
         persistent: true
