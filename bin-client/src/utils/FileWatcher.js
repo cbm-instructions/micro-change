@@ -16,12 +16,132 @@ function getEmptyElementsIndexes(array) {
     return indexes
 }
 
+function getMeasuredWeightParseInFile(dirPath,fs) {
+    const fileNames = fs.readdirSync(dirPath);
+
+    let data;
+    let stringRows;
+
+    //Daten auslesen und in Zeilen speichern
+    fileNames.forEach(function (fileName) {
+        data += fs.readFileSync(dirPath+fileName,"utf-8")+"\n";
+    });
+    data = data.replace("undefined","");
+
+    stringRows = data.split(/\r?\n/);
+
+    processMeasuredDaysData(fs,stringRows);
+    processWeekData(fs,dirPath);
+
+}
+
 /**
- * Liest alle Dateien vom Arduino, sammelt die Information und packt sie als JSON Objekte in table_data.txt
+ * Liest alle Dateien vom Arduino, sammelt die Information und packt sie als JSON Objekte in measuredDays.txt
+ * @param fs
+ * @param stringRows
+ */
+export function processMeasuredDaysData(fs,stringRows){
+    let measuredData = [];
+    let dataOfEachDay = [];
+    let processedDaysData = []
+
+    getEmptyElementsIndexes(stringRows).forEach(function (index) {
+        stringRows.splice(index,index);
+    });
+
+    stringRows.forEach(row => {
+        const splitData = row.split("|");
+        if(splitData.length < 3){
+            measuredData.push({
+                date: splitData[0].substring(0,10),
+                weight: splitData[1],
+                emptied: false
+            })
+        }else{
+            measuredData.push({
+                date: splitData[0].substring(0,10),
+                weight: splitData[1],
+                emptied: true
+            })
+        }
+    });
+
+    let range = 0;
+    let oldRange = 0;
+    let indexWhenLastDayCreated;
+
+    measuredData.forEach(function(currentDay,index){
+        const nextDay = measuredData[index+1];
+        range++;
+        if(nextDay && currentDay.date !== nextDay.date){
+            dataOfEachDay.push(measuredData.slice(oldRange,range));
+            oldRange = range;
+            indexWhenLastDayCreated = index;
+        }
+
+        if(index === measuredData.length-1){
+            dataOfEachDay.push(measuredData.slice(indexWhenLastDayCreated+1,index+1));
+        }
+    });
+
+    dataOfEachDay.forEach(dayData => {
+        let totalWeight = 0;
+        let dateForDayEntry = dayData[0].date;
+        let emptied = false;
+        dayData.forEach(function(currentEntry,index){
+
+            const nextEntry = dayData[index+1];
+
+            if(currentEntry.emptied){
+                emptied = true;
+            }
+
+            if(nextEntry && nextEntry.emptied){
+                totalWeight += parseFloat(currentEntry.weight) + parseFloat(nextEntry.weight);
+            }
+
+            if(index === dayData.length-1){
+                if(totalWeight === 0){
+                    totalWeight = parseFloat(currentEntry.weight);
+                }else{
+                    totalWeight += parseFloat(currentEntry.weight);
+                }
+            }
+        });
+        processedDaysData.push({
+            date: dateForDayEntry,
+            weight: totalWeight,
+            tendency: "Start",
+            day: processedDaysData.length+1,
+            emptied: emptied
+        });
+    });
+
+    processedDaysData.forEach(function (entry,index){
+       if(index>0){
+           if(entry.weight > processedDaysData[index-1].weight){
+               entry.tendency = "Steigend";
+           }else if(entry.weight < processedDaysData[index-1].weight){
+               entry.tendency = "Fallend";
+           }else if(entry.weight === processedDaysData[index-1].weight){
+               entry.tendency = "Gleich";
+           }
+       }
+    });
+
+    fs.writeFile("./data/measuredDays.txt", JSON.stringify(processedDaysData), function(err) {
+        if(err) {
+            throw err
+        }
+    });
+}
+
+/**
+ * Liest alle Dateien vom Arduino, sammelt die Information und packt sie als JSON Objekte in week_data.txt
  * @param dirPath
  * @param fs
  */
-function getMeasuredWeightParseInFile(dirPath,fs) {
+function processWeekData(fs,dirPath) {
     let processedData = [];
     const fileNames = fs.readdirSync(dirPath);
 
@@ -32,7 +152,7 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
         //Erstelle Arrays mit je 7 Dateien
         let i,j, chunk = 7;
         for (i = 0,j = fileNames.length; i < j; i += chunk) {
-            if(Math.floor(fileNames.length - i )/ 7 >= 1){
+            if(Math.floor(fileNames.length - i )/ 7 >= 1) {
                 weeks.push(fileNames.slice(i, i + chunk));
             }
         }
@@ -75,13 +195,14 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
             tableDataEntry = {
                 key: index,
                 week: index+1,
-                totalWeight: maxWeights.reduce((pv, cv) => pv + cv, 0)
+                totalWeight: maxWeights.reduce((pv, cv) => pv + cv, 0),
+                days: week.length
             }
 
             processedData.push(tableDataEntry)
         });
     }
-    fs.writeFile("./data/table_data.txt", JSON.stringify(processedData), function(err) {
+    fs.writeFile("./data/week_data.txt", JSON.stringify(processedData), function(err) {
         if(err) {
             throw err
         }
@@ -113,12 +234,12 @@ export function startFileWatcher() {
 }
 
 /**
- * Wacht über table_data.txt. Bei Änderung der Datei wird auf errungene Achievements überprüft
+ * Wacht über week_data.txt. Bei Änderung der Datei wird auf errungene Achievements überprüft
  * Falls welche erreicht wurden, erscheinen sie als Pop up und werden als JSON-Objekt in reachedAchievements hinzugefügt
  */
 export function startAchievementWatcher() {
     const fileWatcher = window.require("chokidar");
-    const tableDataPath = "./data/table_data.txt";
+    const tableDataPath = "./data/week_data.txt";
     const scaleDataPath = "./scale-sample-data/.data/"
 
     const watcher = fileWatcher.watch([tableDataPath,scaleDataPath], {
@@ -137,35 +258,6 @@ export function startAchievementWatcher() {
         throw error;
     });
 }
-
-/**
- * Alte vorgehensweise Achievements als Popups darzustellen, falls sie erreicht werden. Useless...
- * @param achievement
- * @returns {boolean}
- */
-/*export function startAchievementListener() {
-    const fileWatcher = window.require("chokidar");
-    const reachedAchievementsPath = "./data/reachedAchievements.txt";
-
-    const watcher = fileWatcher.watch(reachedAchievementsPath, {
-        persistent: true,
-        awaitWriteFinish: {
-            pollInterval: 3000
-        },
-    });
-
-    watcher.
-    on('change', () => {
-        const reachedAchievements = getDataFromFile(reachedAchievementsPath);
-
-        if(reachedAchievements.length > 0){
-            showAchievement({...reachedAchievements.slice(-1)})
-        }
-    }).
-    on('error', function(error) {
-        throw error;
-    });
-}*/
 
 /**
  * Schaut in reachedAchievements.txt nach, ob ein Achievement schon erreicht wurde

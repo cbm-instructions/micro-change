@@ -25,7 +25,7 @@ function App() {
                     tab={
                         <span>
                             <TableOutlined />
-                            Table
+                            Tabelle
                         </span>
                     }
                     key="1"
@@ -40,7 +40,7 @@ function App() {
                     tab={
                         <span>
                             <LineChartOutlined />
-                            Chart
+                            Wochen-Diagramm
                         </span>
                     }
                     key="2"
@@ -55,7 +55,7 @@ function App() {
                     tab={
                         <span>
                             <CrownOutlined />
-                            Achievements
+                            Errungenschaften
                         </span>
                     }
                     key="3"
@@ -67,7 +67,7 @@ function App() {
                     </Row>
                 </TabPane>
             </Tabs>
-            <Button onClick={resetStatistics} style={{margin:"auto",marginTop:"10px"}} type="primary" danger>Reset Statistics</Button>
+            <Button onClick={resetStatistics} style={{margin:"auto",marginTop:"10px"}} type="primary" danger>Statistik zurücksetzen</Button>
             <Button onClick={() => showAchievement(JSON.parse(testAchievement))}>SHOW!</Button>
         </div>
     );

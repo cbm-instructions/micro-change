@@ -1,47 +1,58 @@
 import { Table } from 'antd';
 import {useEffect, useState} from "react";
 import {getDataFromFile} from "../utils/utils";
-
-function convertToTableFormat(data){
-    let formattedData = [];
-
-    data.forEach(function (el){
-        formattedData.push({
-            week: el.week,
-            totalWeight: el.totalWeight,
-        })
-    });
-
-    return formattedData;
-}
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 
 const StatisticTable = () => {
-    const filePath = "./data/table_data.txt";
+    const filePath = "./data/measuredDays.txt";
     let [tableData,setTableData] = useState(getDataFromFile(filePath));
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setTableData([...convertToTableFormat(getDataFromFile(filePath))]);
+            setTableData([...getDataFromFile(filePath)]);
         }, 1000);
         return () => clearInterval(interval);
     }, []);
 
     const columns = [
         {
-            title: 'Week',
-            dataIndex: 'week',
-            key: 'week',
+            title: 'Tag',
+            dataIndex: 'day',
+            key: 'day',
+            sorter: {
+                compare: (a, b) => a.day - b.day,
+            },
         },
         {
-            title: 'Total weight',
-            dataIndex: 'totalWeight',
-            key: 'totalWeight',
-            render: totalWeight => Number(totalWeight/1000).toFixed(2)+" Kg",
+            title: 'Gewicht',
+            dataIndex: 'weight',
+            key: 'weight',
+            sorter: {
+                compare: (a, b) => a.weight - b.weight,
+            },
+            render: (weight) => (weight/1000).toFixed(2) + " Kg"
+        },
+        {
+          title: "Datum",
+          dataIndex: "date",
+          key: "date",
+        },
+        {
+            title: "Mülleimer geleert",
+            dataIndex: "emptied",
+            key: "emptied",
+            render: (emptied) => emptied ? <CheckOutlined /> : <CloseOutlined />
         }
     ];
 
 
-    return <Table columns={columns} dataSource={tableData} />;
+    return <Table
+        bordered={true}
+        size={"small"}
+        columns={columns}
+        dataSource={tableData}
+        pagination={{ pageSize: 5}}
+    />;
  }
 
  export default StatisticTable;

@@ -17,7 +17,7 @@ function convertToChartFormat(data){
 }
 
 const StatisticChart = () => {
-    const filePath = "./data/table_data.txt";
+    const filePath = "./data/week_data.txt";
 
     let [chartData,setChartData] = useState(convertToChartFormat(getDataFromFile(filePath)));
 
@@ -31,10 +31,7 @@ const StatisticChart = () => {
     const config = {
         data: chartData,
         padding: 'auto',
-        title: {
-            visible: true,
-            text: "Statistik des Müllverbrauchs"
-        },
+        title: "Statistik des Müllverbrauchs",
         xField: "week",
         yField: "weight",
         color: "#2593fc",

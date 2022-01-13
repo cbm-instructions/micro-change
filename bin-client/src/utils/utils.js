@@ -106,7 +106,14 @@ export const resetStatistics = () => {
     });
 
     //Reset statistic
-    fs.writeFile("./data/table_data.txt","[]", function(err) {
+    fs.writeFile("./data/week_data.txt","[]", function(err) {
+        if(err) {
+            throw err;
+        }
+    });
+
+    //Reset Days Statistic
+    fs.writeFile("./data/measuredDays.txt","[]", function(err) {
         if(err) {
             throw err;
         }
