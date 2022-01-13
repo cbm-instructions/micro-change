@@ -24,9 +24,12 @@ function getEmptyElementsIndexes(array) {
 function getMeasuredWeightParseInFile(dirPath,fs) {
     let processedData = [];
     const fileNames = fs.readdirSync(dirPath);
+
+    //Ist die Anzahl der Dateien durch zwei teibar? (Wurden genug Tage gemessen, die als Wochen zusammengefasst werden können?)
     if(Math.floor(fileNames.length / 7) >= 1){
         let weeks = [];
 
+        //Erstelle Arrays mit je 7 Dateien
         let i,j, chunk = 7;
         for (i = 0,j = fileNames.length; i < j; i += chunk) {
             if(Math.floor(fileNames.length - i )/ 7 >= 1){
@@ -34,6 +37,7 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
             }
         }
 
+        //Jede Woche Analysieren
         weeks.forEach(function (week,index) {
             let data;
             let entries;
@@ -41,17 +45,21 @@ function getMeasuredWeightParseInFile(dirPath,fs) {
             let lastResetIndex;
             let tableDataEntry;
 
+            //Daten auslesen und in Zeilen speichern
             week.forEach(function (fileName) {
                 data += fs.readFileSync(dirPath+fileName,"utf-8")+"\n";
             });
             data = data.replace("undefined","")
 
+            //Zeilen einzeln in ein Array speichern
             entries = data.split(/\r?\n/);
 
+            //Leere Elemente löschen
             getEmptyElementsIndexes(entries).forEach(function (index) {
                 entries.splice(index,index);
             });
 
+            //Müllwechsel erkennen
             entries.forEach(function (entry,index) {
                     if(entry.split("|")[2] === "RESET"){
                         lastResetIndex = index;
@@ -232,7 +240,6 @@ export function getAmountOfFilesInDir(dirPath){
  */
 export function checkOnAchievementsAndChangePoints(weeks) {
 
-
     const reachedAchievements = getDataFromFile("./data/reachedAchievements.txt");
     let isReached = false;
     let points =  getPoints();
@@ -242,7 +249,6 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             points+=10;
             reachedAchievements.push(getAchievementByTitle(AchievementNames.AllerAnfang));
             showAchievement(getAchievementByTitle(AchievementNames.AllerAnfang));
-            console.log("warum")
             isReached = true;
         }
     }
