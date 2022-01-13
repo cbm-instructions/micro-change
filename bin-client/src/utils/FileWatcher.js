@@ -111,8 +111,9 @@ export function startFileWatcher() {
 export function startAchievementWatcher() {
     const fileWatcher = window.require("chokidar");
     const tableDataPath = "./data/table_data.txt";
+    const scaleDataPath = "./scale-sample-data/.data/"
 
-    const watcher = fileWatcher.watch(tableDataPath, {
+    const watcher = fileWatcher.watch([tableDataPath,scaleDataPath], {
         persistent: true,
         awaitWriteFinish: {
             pollInterval: 2000
@@ -220,17 +221,23 @@ export function writePoints(points){
     });
 }
 
+export function getAmountOfFilesInDir(dirPath){
+    const fs = window.require("fs");
+    return fs.readdirSync(dirPath).length;
+}
+
 /**
  * Prüft nach ob im Array, in dem sich die gesammelten Wochen, Achievements erreicht wurden. Falls ja und werden sie angezeigt und gespeichert.
  * @param weeks
  */
 export function checkOnAchievementsAndChangePoints(weeks) {
 
+
     const reachedAchievements = getDataFromFile("./data/reachedAchievements.txt");
     let isReached = false;
     let points =  getPoints();
 
-    if(weeks.length === 1){
+    if(getAmountOfFilesInDir("./scale-sample-data/.data/") === 1){
         if(!isAchievementReached(AchievementNames.AllerAnfang)){
             points+=10;
             reachedAchievements.push(getAchievementByTitle(AchievementNames.AllerAnfang));

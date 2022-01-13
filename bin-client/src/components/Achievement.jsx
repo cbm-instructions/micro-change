@@ -10,7 +10,6 @@ const Achievement = ({ points, title }) => {
 
     return (<div style={{width: "170px"}}>
         <img style={roundImgStyle} width={80} height={80} src={getImageForAchievement(title)} alt={"Icon"}/>
-        <p>g3ege4gegher</p>
         <div>
             <p>Achievement Unlocked <b>{points}P</b></p>
             <p>"{title}"</p>
