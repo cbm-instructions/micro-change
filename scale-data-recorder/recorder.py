@@ -26,7 +26,7 @@ TIMEOUT     = 4
 STORE_FOLDER_NAME = ".data"
 cwd               = os.getcwd()
 # .data folder needs to be in bin-client folder so frontend can access it
-storage_folder    = os.path.abspath(os.path.join(os.path.join(cwd, "..", "bin-client"), STORE_FOLDER_NAME))
+storage_folder    = os.path.abspath(os.path.join(os.path.join(cwd, "..", "bin-client", "scale-sample-data"), STORE_FOLDER_NAME))
 
 # Values for weight calculation
 NEW_RELEVANT_THRESHOLD          = 2.0  # Grams
