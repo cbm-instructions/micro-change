@@ -1,0 +1,1 @@
+[{"date":"2022-01-14","weight":159.62,"tendency":"Start","day":1,"emptied":true}]

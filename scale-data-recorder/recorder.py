@@ -6,7 +6,7 @@ from typing import Optional
 
 
 try:
-    debug = os.environ["DEBUG"] == "true"
+    debug = os.getenv("DEBUG") == "true"
 except:
     debug = False
 
@@ -25,12 +25,16 @@ TIMEOUT     = 4
 # Values for data storage
 STORE_FOLDER_NAME = ".data"
 cwd               = os.getcwd()
-storage_folder    = os.path.join(cwd, STORE_FOLDER_NAME)
+# .data folder needs to be in bin-client folder so frontend can access it
+storage_folder    = os.path.abspath(os.path.join(os.path.join(cwd, "..", "bin-client", "scale-sample-data"), STORE_FOLDER_NAME))
 
 # Values for weight calculation
 NEW_RELEVANT_THRESHOLD          = 2.0  # Grams
 RESET_RELEVANT_WEIGHT_THRESHOLD = 1.5  # Grams
-RESET_RELEVANT_WEIGHT_TIME      = 60   # Seconds
+RESET_RELEVANT_WEIGHT_TIME      = 5    # Seconds
+
+TIME_FORMAT_FILE = '%Y-%m-%d'
+TIME_FORMAT_WEIGHT = f"{TIME_FORMAT_FILE} %H:%M:%S"
 
 last_relevant_weight = 0.0
 
@@ -60,6 +64,7 @@ class ResetTimeTracker:
         """Sets the starts time to current time"""
         self.reset_start_time = int(time.time())
 
+
 def main():
     init_storage()
     load_last_relevant_weight()
@@ -83,25 +88,39 @@ def load_last_relevant_weight():
             lines = file.readlines()
             if len(lines) > 0:
                 global last_relevant_weight
-                last_relevant_weight = float(lines[-1])
+                last_relevant_weight = get_weight_from_line(lines[-1])
     
     print_d(f"Last relevant weight: {last_relevant_weight}")
+
+
+def get_weight_from_line(line: str) -> float:
+    split = line.strip().split('|')
+    return float(split[1])
     
 
 def get_path_of_latest_file() -> Optional[Path]:
     """Gets the path of the latest produced file that contains weight information"""
     path = Path(storage_folder)
     latest_file = None
+    time_stamp_latest = -1
     for entry in path.iterdir():
         if entry.is_file():
-            time_stamp_latest = int(entry.name)  # Filenames are time in seconds starting from unix epoch
             if latest_file == None:
                 latest_file = entry
-            elif int(entry.name) > time_stamp_latest:
+                time_stamp_latest = time.mktime(get_time_tuple_from_filename(entry.name))
+            else:
+                time_stamp_latest = time.mktime(get_time_tuple_from_filename(latest_file.name))
+
+            time_stamp_current = time.mktime(get_time_tuple_from_filename(entry.name))
+            if time_stamp_current > time_stamp_latest:
                 latest_file = entry
     
-    print_d(f"Latest file: {latest_file}")
+    # print_d(f"Latest file: {latest_file}")
     return latest_file
+
+
+def get_time_tuple_from_filename(filename: str) -> time.struct_time:
+    return time.strptime(filename, TIME_FORMAT_FILE)
 
 
 def run_serial_stream_loop():
@@ -113,19 +132,31 @@ def run_serial_stream_loop():
     reset_time_tracker = ResetTimeTracker()  # Used to determine if the variable 'last_relevant_weight' should be reset
     with serial.Serial(DEVICE, SERIAL_PORT, timeout=TIMEOUT) as ser:
         bytes = ser.readline()
+        was_reset = False
+        started = False
         while bytes != '':  # '' means EOF in python
             # Get next value without whitespaces
+            create_new_datafile_if_needed()
             line = bytes.decode('utf-8').strip()
-            weight = 0.0
-            try:
-                weight = float(line)
-            except:
-                pass
-            print_d(weight)
-            if is_new_relevant_weight(weight):
-                save_and_set_new_relevant_weight(weight)
-            elif should_reset_weight(weight, reset_time_tracker):
-                reset_last_relevant_weight(reset_time_tracker)
+            print_d(line)
+            if not started:
+                started = line == "STARTING"
+            else:
+                weight = 0.0
+                try:
+                    weight = float(line)
+                except:
+                    pass
+                print_d(weight)
+                if is_new_relevant_weight(weight):
+                    save_and_set_new_relevant_weight(weight)
+                    was_reset = False
+                    reset_time_tracker = ResetTimeTracker()
+                elif weight < RESET_RELEVANT_WEIGHT_THRESHOLD and should_reset_weight(weight, reset_time_tracker) and not was_reset:
+                    # TODO: Sometimes a weight is saved as reset even if it is not below the threshold
+                    reset_last_relevant_weight(reset_time_tracker)
+                    save_and_set_new_relevant_weight(1.0, True)
+                    was_reset = True
             bytes = ser.readline()
 
 
@@ -134,11 +165,49 @@ def is_new_relevant_weight(weight: float) -> bool:
     return weight > (last_relevant_weight + NEW_RELEVANT_THRESHOLD)
 
 
-def save_and_set_new_relevant_weight(weight: float):
+def save_and_set_new_relevant_weight(weight: float, isReset: bool=False):
     global last_relevant_weight
     last_relevant_weight = weight
-    print_d(f"{time.time()}|{weight}")
-    # TODO: Save new relevant weight to file
+    print_d(build_weight_string_for_file(weight, isReset))
+    latest_file_path = get_path_of_latest_file()
+    if latest_file_path != None:
+        with open(latest_file_path, mode="a") as file:
+            file.write(f"{build_weight_string_for_file(weight, isReset)}\n")
+
+
+def build_weight_string_for_file(weight: float, isReset: bool) -> str:
+    weight_string = f"{time.strftime(TIME_FORMAT_WEIGHT, time.localtime(time.time()))}|{weight}"
+    if isReset:
+        weight_string += "|RESET"
+    return weight_string
+
+
+def create_new_datafile_if_needed():
+    """
+    Checks if the latest file is still on the current day,
+    if not creates a new datafile for the current day.
+    """
+    latest_file_path = get_path_of_latest_file()
+
+    if latest_file_path == None:
+        create_new_datafile()
+    elif need_new_datafile(str(latest_file_path.name)):
+        create_new_datafile()
+
+
+def need_new_datafile(filename: str) -> bool:
+    """Returns wheather the given file is from last day or not."""
+    time_tuple = get_time_tuple_from_filename(filename)
+    now = time.localtime(time.time())
+    return time_tuple.tm_yday < now.tm_yday or time_tuple.tm_year < now.tm_year 
+
+
+
+def create_new_datafile():
+    file_name = time.strftime(TIME_FORMAT_FILE, time.localtime(time.time()))
+    
+    with open(os.path.join(storage_folder, file_name), "w") as file:
+        pass
 
 
 def should_reset_weight(current_weight: float, time_tracker: ResetTimeTracker) -> bool:
