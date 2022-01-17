@@ -135,6 +135,7 @@ def run_serial_stream_loop():
         was_reset = False
         started = False
         while bytes != '':  # '' means EOF in python
+            create_new_datafile_if_needed()
             # Get next value without whitespaces
             line = bytes.decode('utf-8').strip()
             print_d(line)
@@ -148,12 +149,10 @@ def run_serial_stream_loop():
                     pass
                 print_d(weight)
                 if is_new_relevant_weight(weight):
-                    create_new_datafile_if_needed()
                     save_and_set_new_relevant_weight(weight)
                     was_reset = False
                     reset_time_tracker = ResetTimeTracker()
                 elif weight < RESET_RELEVANT_WEIGHT_THRESHOLD and should_reset_weight(weight, reset_time_tracker) and not was_reset:
-                    create_new_datafile_if_needed()
                     reset_last_relevant_weight(reset_time_tracker)
                     save_and_set_new_relevant_weight(1.0, True)
                     was_reset = True
