@@ -11,14 +11,18 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.18.2",
     "chokidar": "^3.5.2",
-    "concurrently": "^6.5.1",
-    "cross-env": "^7.0.3",
-    "electron": "^16.0.5",
+    "electron-is-dev": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
-    "wait-on": "^6.0.0",
     "web-vitals": "^2.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.1",
+    "cross-env": "^7.0.3",
+    "electron": "^16.0.5",
+    "electron-builder": "^22.9.1",
+    "wait-on": "^6.0.0"
   },
   "main": "public/main.js",
   "homepage": "./",
@@ -28,8 +32,21 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
-    "electron:build": "",
+    "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron:start": "wait-on tcp:3000 && electron ."
+  },
+  "build": {
+    "extends": null,
+    "appId": "com.bin-client.microChange",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "eslintConfig": {
     "extends": [
