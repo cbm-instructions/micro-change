@@ -1,2 +1,4 @@
 # .data is for storage of scale data
 /.data
+
+/bin-client/scale-sample-data/.data/**

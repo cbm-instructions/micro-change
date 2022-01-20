@@ -5,18 +5,13 @@ import StatisticTable from "./components/StatisticTable";
 import {startAchievementWatcher, startFileWatcher} from "./utils/FileWatcher";
 import StatisticChart from "./components/StatisticChart";
 import AchievementList from "./components/AchievementList";
-import {resetStatistics, showAchievement} from "./utils/utils";
+import {resetStatistics} from "./utils/utils";
 
 const { TabPane } = Tabs;
 
 function App() {
     startFileWatcher();
     startAchievementWatcher();
-
-    const testAchievement = `{
-    "title": "Baumtöter",
-      "description": "Mehr als doppelt so viel verbraucht, wie in der vorherigen Woche"
-    }`
 
     return (
         <div style={{textAlign:"center"}}>
@@ -68,7 +63,6 @@ function App() {
                 </TabPane>
             </Tabs>
             <Button onClick={resetStatistics} style={{margin:"auto",marginTop:"10px"}} type="primary" danger>Statistik zurücksetzen</Button>
-            <Button onClick={() => showAchievement(JSON.parse(testAchievement))}>SHOW!</Button>
         </div>
     );
 }

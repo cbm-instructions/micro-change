@@ -52,6 +52,7 @@ const StatisticTable = () => {
         columns={columns}
         dataSource={tableData}
         pagination={{ pageSize: 5}}
+        rowKey={"date"}
     />;
  }
 
