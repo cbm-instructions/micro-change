@@ -7,8 +7,8 @@ const path = require('path');
 function createWindow(){
 
     const window = new BrowserWindow({
-        width: 800,
-        height: 600,
+        autoHideMenuBar: true,
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,
@@ -16,7 +16,7 @@ function createWindow(){
         }
     });
 
-    window.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname,'../build/index.html')}`);
+    window.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, '../build/index.html')}`).then(r => window.maximize());
 }
 
 app.on("ready",createWindow)
