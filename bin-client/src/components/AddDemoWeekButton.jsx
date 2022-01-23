@@ -1,5 +1,5 @@
 import {Button} from "antd";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const AddDemoWeekButton = () => {
 
@@ -8,6 +8,12 @@ const AddDemoWeekButton = () => {
 
     const demoDataDir = "./demoData/";
 
+    useEffect(() => {
+        if(fileNumber >= 5){
+            setFileNumber(1);
+        }
+    },[fileNumber])
+
     const addDemoWeek = () => {
         const dirNames = fs.readdirSync(demoDataDir);
 
@@ -15,7 +21,6 @@ const AddDemoWeekButton = () => {
             if(parseInt(dirName.substring(0)) === fileNumber){
                 const fileNames = fs.readdirSync(demoDataDir+dirName);
                 fileNames.forEach((fileName)=>{
-
                     fs.copyFile(demoDataDir+dirName+"/"+fileName,"scale-sample-data/.data/"+fileName,(err => {
                         if(err) throw err;
                     }));
