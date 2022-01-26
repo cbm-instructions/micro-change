@@ -9,6 +9,7 @@ function createWindow(){
     const window = new BrowserWindow({
         autoHideMenuBar: true,
         frame: false,
+        fullscreen: true,
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,
