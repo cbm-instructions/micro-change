@@ -32,12 +32,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
-    "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js",
+    "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js --armv7l",
     "electron:start": "wait-on tcp:3000 && electron ."
   },
   "build": {
     "extends": null,
     "appId": "com.bin-client.microChange",
+    "target": "AppImage",
     "files": [
       "dist/**/*",
       "build/**/*",
