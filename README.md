@@ -47,3 +47,4 @@ start_x=1
 - rename extraction folder to `bin-client`
 - create folders `data` and `scale-sample-data` inside `bin-client`
 - move folder `scale-data-recorder` inside `ben-exec`
+- DO ALL THIS STUFF IN A BASH SCRIPT
