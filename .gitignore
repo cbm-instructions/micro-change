@@ -2,3 +2,6 @@
 /.data
 */icon
 */dist
+
+/.idea
+/bin-client/scale-sample-data/.data/**

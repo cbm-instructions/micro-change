@@ -163,7 +163,7 @@ function processWeekData(fs,dirPath) {
             let entries;
             let maxWeights = [];
             let lastResetIndex;
-            let tableDataEntry;
+            let weekDataEntry;
 
             //Daten auslesen und in Zeilen speichern
             week.forEach(function (fileName) {
@@ -183,7 +183,9 @@ function processWeekData(fs,dirPath) {
             entries.forEach(function (entry,index) {
                     if(entry.split("|")[2] === "RESET"){
                         lastResetIndex = index;
-                        maxWeights.push(parseFloat(entries[index-1].split("|")[1]));
+                        if(index > 0){
+                            maxWeights.push(parseFloat(entries[index-1].split("|")[1]));
+                        }
                     }
                 }
             );
@@ -192,14 +194,14 @@ function processWeekData(fs,dirPath) {
                 maxWeights.push(parseFloat(entries[entries.length -1].split("|")[1]));
             }
 
-            tableDataEntry = {
+            weekDataEntry = {
                 key: index,
                 week: index+1,
                 totalWeight: maxWeights.reduce((pv, cv) => pv + cv, 0),
                 days: week.length
             }
 
-            processedData.push(tableDataEntry)
+            processedData.push(weekDataEntry)
         });
     }
     fs.writeFile("./data/week_data.txt", JSON.stringify(processedData), function(err) {
@@ -265,7 +267,6 @@ export function startAchievementWatcher() {
  * @returns {boolean}
  */
 export function isAchievementReached(achievement){
-
     const reachedAchievements = getDataFromFile("./data/reachedAchievements.txt");
 
     if(reachedAchievements.length > 0){
@@ -326,6 +327,23 @@ export function getAmountOfFilesInDir(dirPath){
     return fs.readdirSync(dirPath).length;
 }
 
+export function checkErsteMessungAchievementConditions(){
+    const fs = window.require("fs");
+
+    let conditionFulfilled = false;
+    const fileNames = fs.readdirSync("./scale-sample-data/.data/");
+    if(fileNames.length === 1){
+        let fileData = fs.readFileSync("./scale-sample-data/.data/"+fileNames[0],"utf-8");
+        fileData = fileData.replace("undefined","");
+        let stringRows = fileData.split(/\r?\n/);
+        if(stringRows.length > 1){
+            conditionFulfilled = true;
+        }
+    }
+
+    return conditionFulfilled;
+}
+
 /**
  * Prüft nach ob im Array, in dem sich die gesammelten Wochen, Achievements erreicht wurden. Falls ja und werden sie angezeigt und gespeichert.
  * @param weeks
@@ -337,11 +355,13 @@ export function checkOnAchievementsAndChangePoints(weeks) {
     let points =  getPoints();
 
     if(getAmountOfFilesInDir("./scale-sample-data/.data/") === 1){
-        if(!isAchievementReached(AchievementNames.AllerAnfang)){
-            points+=10;
-            reachedAchievements.push(getAchievementByTitle(AchievementNames.AllerAnfang));
-            showAchievement(getAchievementByTitle(AchievementNames.AllerAnfang));
-            isReached = true;
+        if(checkErsteMessungAchievementConditions()){
+            if(!isAchievementReached(AchievementNames.AllerAnfang)){
+                points+=10;
+                reachedAchievements.push(getAchievementByTitle(AchievementNames.AllerAnfang));
+                showAchievement(getAchievementByTitle(AchievementNames.AllerAnfang));
+                isReached = true;
+            }
         }
     }
 
@@ -351,7 +371,6 @@ export function checkOnAchievementsAndChangePoints(weeks) {
         const firstWeek = lastTwoWeeks[0];
 
         if(secondWeek.totalWeight > (firstWeek.totalWeight * 2)){
-            points-=40;
             if(!isAchievementReached(AchievementNames.Baumtoeter)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.Baumtoeter));
                 showAchievement(getAchievementByTitle(AchievementNames.Baumtoeter));
@@ -360,7 +379,6 @@ export function checkOnAchievementsAndChangePoints(weeks) {
         }
 
         if(secondWeek.totalWeight <= (firstWeek.totalWeight / 2)){
-            points+=50;
             if(!isAchievementReached(AchievementNames.Vorbild)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.Vorbild));
                 showAchievement(getAchievementByTitle(AchievementNames.Vorbild));
@@ -368,8 +386,15 @@ export function checkOnAchievementsAndChangePoints(weeks) {
             }
         }
 
-        if(secondWeek.totalWeight <= (firstWeek.totalWeight-((firstWeek.totalWeight/100)*5)) ){
-            points+=20;
+        if(secondWeek.totalWeight >= secondWeek.totalWeight+(((firstWeek.totalWeight/100)*10))){
+            if(!isAchievementReached(AchievementNames.FalscherWeg)){
+                reachedAchievements.push(getAchievementByTitle(AchievementNames.FalscherWeg));
+                showAchievement(getAchievementByTitle(AchievementNames.FalscherWeg));
+                isReached = true;
+            }
+        }
+
+        if(secondWeek.totalWeight <= (firstWeek.totalWeight-((firstWeek.totalWeight/100)*5))){
             if(!isAchievementReached(AchievementNames.RichtigerWeg)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.RichtigerWeg));
                 showAchievement(getAchievementByTitle(AchievementNames.RichtigerWeg));
@@ -379,8 +404,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
 
         const fivePercentMore = firstWeek.totalWeight + ((firstWeek.totalWeight/100)*5);
         const fivePercentLess = firstWeek.totalWeight - ((firstWeek.totalWeight/100)*5);
-        if((secondWeek.totalWeight >= firstWeek && secondWeek.totalWeight <= fivePercentMore) || (secondWeek <= firstWeek && secondWeek >= fivePercentLess)){
-            points+=1;
+        if((secondWeek.totalWeight >= firstWeek.totalWeight && secondWeek.totalWeight <= fivePercentMore) || (secondWeek <= firstWeek && secondWeek >= fivePercentLess)){
             if(!isAchievementReached(AchievementNames.AllesBleibt)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.AllesBleibt));
                 showAchievement(getAchievementByTitle(AchievementNames.AllesBleibt));
@@ -391,8 +415,7 @@ export function checkOnAchievementsAndChangePoints(weeks) {
 
     if(weeks.length >= 3){
         const lastThreeWeeks = weeks.slice(-3);
-        if((lastThreeWeeks[0].totalWeight < lastThreeWeeks[1].totalWeight) && (lastThreeWeeks[1].totalWeight < lastThreeWeeks[2].totalWeight)){
-            points+=100;
+        if((lastThreeWeeks[0].totalWeight > lastThreeWeeks[1].totalWeight) && (lastThreeWeeks[1].totalWeight > lastThreeWeeks[2].totalWeight)){
             if(!isAchievementReached(AchievementNames.WinStreak)){
                 reachedAchievements.push(getAchievementByTitle(AchievementNames.WinStreak));
                 showAchievement(getAchievementByTitle(AchievementNames.WinStreak));

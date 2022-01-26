@@ -135,8 +135,8 @@ def run_serial_stream_loop():
         was_reset = False
         started = False
         while bytes != '':  # '' means EOF in python
-            # Get next value without whitespaces
             create_new_datafile_if_needed()
+            # Get next value without whitespaces
             line = bytes.decode('utf-8').strip()
             print_d(line)
             if not started:
@@ -153,7 +153,6 @@ def run_serial_stream_loop():
                     was_reset = False
                     reset_time_tracker = ResetTimeTracker()
                 elif weight < RESET_RELEVANT_WEIGHT_THRESHOLD and should_reset_weight(weight, reset_time_tracker) and not was_reset:
-                    # TODO: Sometimes a weight is saved as reset even if it is not below the threshold
                     reset_last_relevant_weight(reset_time_tracker)
                     save_and_set_new_relevant_weight(1.0, True)
                     was_reset = True

@@ -1,1 +1,1 @@
-[{"points":10,"title":"Aller Anfang ist schwer","description":"Erste Messung erhoben"}]
+[]
