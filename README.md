@@ -33,3 +33,18 @@ start_x=1
 - Connect Arduino with Raspberry Pi
 - `sudo apt install arduino` on Raspberry Pi
 - Load Arduino Project onto Arduino
+
+### AppImage installation
+
+- ...
+<!-- - Install libfuse2 -->
+- build AppImage with `yarn run electron:build`
+- move AppImage to raspy
+- create folder `ben-exec`
+- move appimage inside ben-exec folder
+- run `chmod a+x <appimage file>` to make it executable
+- run AppImage with option `--appimage-extract` and extract the AppImage
+- rename extraction folder to `bin-client`
+- create folders `data` and `scale-sample-data` inside `bin-client`
+- move folder `scale-data-recorder` inside `ben-exec`
+- DO ALL THIS STUFF IN A BASH SCRIPT
