@@ -134,10 +134,14 @@ def run_serial_stream_loop():
         bytes = ser.readline()
         was_reset = False
         started = False
+        line = ""
         while bytes != '':  # '' means EOF in python
             create_new_datafile_if_needed()
             # Get next value without whitespaces
-            line = bytes.decode('utf-8').strip()
+            try:
+                line = bytes.decode('utf-8').strip()
+            except:
+                pass
             print_d(line)
             if not started:
                 started = line == "STARTING"
