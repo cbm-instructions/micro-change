@@ -34,7 +34,7 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 </p>
 
 ## Unser Produkt
-*Ben* eignet sich am Besten für Papier- und Verpackungsmüll. In der Basis des smarten Mülleimers befinden sich Wägezellen, da wir die Müllproduktion anhand des Gewichts ermitteln. Dem Nutzer werden auf einem Display Statistiken und Errungenschaften angezeigt. Er kann Punkte sammeln, wenn er sein Konsumverhalten zum positiven verbessert bzw. sie bei Fehlverhalten wieder verlieren. Achievements wie *Baumtöter* visualisieren dies.
+*Ben* der smarte Mülleimer eignet sich am Besten für Papier- und Verpackungsmüll. In der Basis des smarten Mülleimers befinden sich Wägezellen, da wir die Müllproduktion anhand des Gewichts ermitteln. Dem Nutzer werden auf einem Display Statistiken und Errungenschaften angezeigt. Er kann Punkte sammeln, wenn er sein Konsumverhalten zum positiven verbessert bzw. sie bei Fehlverhalten wieder verlieren. Achievements wie *Baumtöter* visualisieren dies.
 
 ## Material
 
@@ -43,7 +43,7 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 	- z.B. [hier](https://www.conrad.de/de/p/joy-it-sen-hx711-10-waegezelle-passend-fuer-einplatinen-computer-arduino-raspberry-pi-1-st-2475885.html) bei Conrad zu kaufen
 	- optional: Schnittstelle(n) zwischen Arduino und Wägezellen kaufen um sich das Löten zu sparen
 - 5 Platten DIN A2 4mm Sperrholz, idealerweise aus Pappel  
-	- z.B. [hier](https://www.bauhaus.info/sperrholzplatten/sperrholz/p/14453914) bei Bauhauszu kaufen
+	- z.B. [hier](https://www.bauhaus.info/sperrholzplatten/sperrholz/p/14453914) bei Bauhaus zu kaufen
 -  Raspberry Pi 7 Display mit kapazitiven Touchscreen
 - Breadboard klein
 - 12 Jumperkabel (male-to-male)
@@ -79,13 +79,13 @@ Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwen
   src="images/microChange/schaltplan.jpeg" />
   
 ### Die Bodenplatte bauen
-Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate á 20x20cm. 
-Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt. Auf der linken Abbildung wurden allerdings zu viele Löcher gebohrt.
+Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate mit den Maßen TODO: Maße klären 20 x 20cm?. 
+Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt. Auf der linken Abbildung wurden allerdings zu viele Löcher gebohrt; man benötig nur 4 Löcher, von denen sich je 2 schräg gegenüberstehen.
 <p align="center">
   <img width="350" height="350" src="images/microChange/bodenplatte.jpg" />
   <img width="350" height="350" src="images/microChange/waegzellen.jpeg" />
 </p>
-Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Lasercutten angeklebt. Ansonsten würde die Bodenplatte wackeln; auf der Oberseite ist dies nicht zwingend nötig. So sieht das ganze später von oben aus:
+Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Lasercutten angeklebt. Ansonsten würde die Bodenplatte wackeln. Auf der Oberseite ist dies nicht zwingend nötig. So sieht das ganze später von oben aus:
 </p>
 <p align="center">
   <img width="350" height="350" src="images/microChange/oben.jpeg" />
@@ -106,7 +106,7 @@ Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik tr
 </p>
 
 Wichtig ist,  alles erst zusammenzustecken, wenn der nächste Schritt, der Einbau der Elektronik vollendet ist.
-Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für das Netzkabel sowie ein Rechteck mit den Maßen 21,7x1,7cm ausgeschnitten. Letzteres schließt den Spalt zwischen Trennwand und Display. Dies ist allerdings nur Kosmetik.
+Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für das Netzkabel sowie ein Rechteck mit den Maßen 21,7 x 1,7cm ausgeschnitten. Letzteres schließt den Spalt zwischen Trennwand und Display. Dies ist allerdings nur Kosmetik.
 
 #### Einbau der Elektronik
 Zuerst wird das Display auf der Frontstück des Mülleimers geschraubt. Hierfür sollte vorgebohrt werden, damit das Holz nicht bricht.
@@ -385,6 +385,7 @@ Die Anwendung sollte nun vollständig starten.
 **Glückwunsch!** Du kannst nun BEN verwenden und deinem Ziel nach einer besseren Umwelt ein Stück näher kommen.
 
 ## Ausblick
-Als Nächstes wäre eine Vernetzung mit anderen smarten Mülleimern denkbar. So könnte man sich mit Freunden, Fremden und dem aktuellen Durchschnitt vergleichen. Eine feinere Unterscheidung des Abfalls mittels Bilderkennung und maschinellem Lernen ist ebenfalls denkbar aber nicht trivial umzusetzen.
+Als Nächstes wäre eine Vernetzung mit anderen smarten Mülleimern denkbar. So könnte man sich mit Freunden, Fremden und dem aktuellen Durchschnitt vergleichen. Da die Messdaten maschinell lesbar sind, können sie auch in andere Anwedungen und bestehende SmartHome-Systemen eingebunden werden. 
+Eine feinere Unterscheidung des Abfalls mittels Bilderkennung und maschinellem Lernen ist ebenfalls denkbar aber nicht trivial umzusetzen.
 
 Die Basis mit den Wägezellen hat sich als sehr genau bewiesen und ist  damit auch für andere Anwendungszwecke geeignet.
