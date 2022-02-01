@@ -176,7 +176,7 @@ Das Projekt sollte am besten nicht auf dem Raspberry Pi gebaut werden, da es dor
 
 - Klone das Git Repo:
 ```bash
-git clone <TODO: Repo URL einfügen>
+git clone git@github.com:cbm-instructions/micro-change.git
 ```
 
 - Wechsle in den Ordner des Repos und dann in den Order 'bin-client'
