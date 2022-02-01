@@ -8,9 +8,9 @@ run_sh="run.sh"
 setup_sh="setup.sh"
 
 # Build frontend AppImage
-# cd bin-client
-# yarn run electron:build
-# cd ..
+cd bin-client
+yarn run electron:build
+cd ..
 
 # Bundle for transfer per USB
 mkdir $ben_bundle
