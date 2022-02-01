@@ -30,7 +30,7 @@
 Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich dafür auf die Müllproduktion eines Haushalts fokussiert. Mit unserem Produkt zeigen wir dem Nutzer diese auf und schaffen Anreize, das Verhalten nachhaltig positiv zu verändern.
 
 <p align="center">
-  <img width="400" height="650" src="images/microChange/Ben_the_bin.png">
+  <img width="400" height="650" src="images/microChange/Ben_the_bin.png" />
 </p>
 
 ## Unser Produkt
@@ -69,13 +69,13 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate á 20x20cm. 
 Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt:
 <p align="center">
-  <img width="350" height="350" src="images/microChange/bodenplatte.jpg">
-  <img width="350" height="350" src="images/microChange/waegzellen.jpeg">
+  <img width="350" height="350" src="images/microChange/bodenplatte.jpg" />
+  <img width="350" height="350" src="images/microChange/waegzellen.jpeg" />
 </p>
 Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Lasercutten angeklebt. Ansonsten würde die Bodenplatte wackeln; auf der Oberseite ist dies nicht zwingend nötig. So sieht das ganze später von oben aus:
 </p>
 <p align="center">
-  <img width="350" height="350" src="images/microChange/oben.jpeg">
+  <img width="350" height="350" src="images/microChange/oben.jpeg" />
 </p>
 
 ### Den Mülleimer bauen
@@ -83,13 +83,15 @@ Die [.svg Datei](../images/microChange/Konsole.svg) hierfür wurde auf [festi.in
 
 <p align="center">
   <img width="400" height="600
-  " src="images/microChange/mülleimer_seitlich.jpeg">
+  " src="images/microChange/mülleimer_seitlich.jpeg" />
 </p>
-Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik trennt. Die svg-Datei hierfür befindet sich TODO: Fix Link
-[hier](../images/microChange/Trennwand.svg). Da wir die Trennwand herausnehmen wollen, haben wir an beiden Seiten eine Art Schiene gebastelt:
+
+Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik trennt. Die svg-Datei hierfür befindet sich [hier](../images/microChange/Konsole.svg). Da wir die Trennwand herausnehmen wollen, haben wir an beiden Seiten eine Art Schiene gebastelt:
+
 <p align="center">
-  <img width="300" height="400" src="images/microChange/schiene.jpeg">
+  <img width="300" height="400" src="images/microChange/schiene.jpeg" />
 </p>
+
 Wichtig ist,  alles erst zusammenzustecken, wenn der nächste Schritt, der Einbau der Elektronik vollendet ist.
 Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für das Netzkabel sowie ein Rechteck mit den Maßen 21,7x1,7cm ausgeschnitten. Letzteres schließt den Spalt zwischen Trennwand und Display. Dies ist allerdings nur Kosmetik.
 
@@ -97,16 +99,16 @@ Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für d
 Zuerst wird das Display auf der Frontstück des Mülleimers geschraubt. Hierfür sollte vorgebohrt werden, damit das Holz nicht bricht.
 </p>
 <p align="center">
-  <img width="400" height="300" src="images/microChange/front.jpeg">
+  <img width="400" height="300" src="images/microChange/front.jpeg" />
 </p>
 </p>
 <p align="center">
-  <img width="400" height="300" src="images/microChange/front_display.jpeg">
+  <img width="400" height="300" src="images/microChange/front_display.jpeg" />
 </p>
 Die restliche Elektronik wird in dem Kompartment vor der Trennwand untergebracht. Dabei sollte kein starker Zug auf den Kabeln sein.
 <p align="center">
-  <img width="250" height="400" src="images/microChange/arduino_eingebaut.jpeg">
-  <img width="250" height="400" src="images/microChange/elektronik_innen.jpeg">
+  <img width="250" height="400" src="images/microChange/arduino_eingebaut.jpeg" />
+  <img width="250" height="400" src="images/microChange/elektronik_innen.jpeg" />
 </p>
 Nun können alle Holzwände zusammengesteckt und das Frontstück mit Holzleim gefestigt werden.
 
