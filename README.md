@@ -40,21 +40,21 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 
 - Arduino Uno R3
 - 2x HX711 ADC-Modul mit 5kg Wägezelle
-	- z.B. hier bei [Conrad](https://www.conrad.de/de/p/joy-it-sen-hx711-10-waegezelle-passend-fuer-einplatinen-computer-arduino-raspberry-pi-1-st-2475885.html) zu kaufen
+	- z.B. [hier](https://www.conrad.de/de/p/joy-it-sen-hx711-10-waegezelle-passend-fuer-einplatinen-computer-arduino-raspberry-pi-1-st-2475885.html) bei Conrad zu kaufen
 	- optional: Schnittstelle(n) zwischen Arduino und Wägezellen kaufen um sich das Löten zu sparen
 - 5 Platten DIN A2 4mm Sperrholz, idealerweise aus Pappel  
-	- z.B. hier bei [Bauhaus](https://www.bauhaus.info/sperrholzplatten/sperrholz/p/14453914) zu kaufen
+	- z.B. [hier](https://www.bauhaus.info/sperrholzplatten/sperrholz/p/14453914) bei Bauhauszu kaufen
 -  Raspberry Pi 7 Display mit kapazitiven Touchscreen
 - Breadboard klein
-- 8x Jumperkabel (male to male)
-- 4 Schraube und 8 Mutter 
+- 12 Jumperkabel (male-to-male)
+- 8 Schrauben und 8 Muttern 
 - Holzleim
 - Klebeband
 - Lötzinn
 
 
 ## Werkzeuge
-- LaserCutter
+- Lasercutter
 - Lötkolben
 - Bohrmaschine
 - Schraubenzieher
@@ -65,9 +65,21 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 * Lasercutterworkshop
 
 ## Bauanleitung
+### Verkabelung
+Die Verkabelung kann folgender Grafik entnommen werden:
+<p align="center">
+  <img width="600" height="600"
+  src="images/microChange/microChange_schaltplan.png" />
+	
+Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwendet eine fertige Schnittstelle, bei der man die Kabel nur einstecken muss. Kostenpunkt für letzteres sind ca 5€. Nach dem Anschluss aller Kabel sollte das in etwa so aussehen:
+	
+  <p align="center">
+  <img width="550" height="500"
+  src="images/microChange/schaltplan.jpeg" />
+  
 ### Die Bodenplatte bauen
 Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate á 20x20cm. 
-Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt:
+Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt. Auf der linken Abbildung wurden allerdings zu viele Löcher gebohrt.
 <p align="center">
   <img width="350" height="350" src="images/microChange/bodenplatte.jpg" />
   <img width="350" height="350" src="images/microChange/waegzellen.jpeg" />
@@ -79,14 +91,14 @@ Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Las
 </p>
 
 ### Den Mülleimer bauen
-Die [.svg Datei](../images/microChange/Konsole.svg) hierfür wurde auf [festi.info](https://www.festi.info/boxes.py/)  erstellt. Dabei haben wir das Preset _Console2_ ausgewählt, weil wir die Schräge für unser Display wollten. Wichtig dabei war, den Parameter  _thickness_ auf unser Holz anzupassen. _Burn correction_ wurde von 0,1 auf 0,09 reduziert. Dadurch hat man beim Zusammenstecken etwas mehr Spiel, was bei der Größe unserer Box hilfreich ist. Vor dem Lasercutten sollte man sich vergewissern, dass die Linienstärke bei 0,035mm und die Farbe schwarz (RGB000) ist. Dies sieht man z.B. in _Adobe Illustrator_ oder _Inkscape._ Wir haben Pappelsperrholz als Material gewählt.  Die hiermit erstellten Pläne lassen sich einfach zusammenstecken und sind optisch ansprechend. Für die Breite und Tiefe wurde sich nach der Bodenplatte gerichtet, theoretisch lassen sich die Maße abändern solange die Bodenplatte noch rein passt.
+Die [.svg Datei](/images/microChange/Konsole.svg) hierfür wurde auf [festi.info](https://www.festi.info/boxes.py/)  erstellt. Dabei haben wir das Preset _Console2_ ausgewählt, weil wir die Schräge für unser Display wollten. Wichtig dabei war, den Parameter  _thickness_ auf unser Holz anzupassen. _Burn correction_ wurde von 0,1 auf 0,09 reduziert. Dadurch hat man beim Zusammenstecken etwas mehr Spiel, was bei der Größe unserer Box hilfreich ist. Vor dem Lasercutten sollte man sich vergewissern, dass die Linienstärke bei *0,035mm* und die Farbe schwarz (*RGB000*) ist. Dies sieht man z.B. in _Adobe Illustrator_ oder _Inkscape._ Wir haben Pappelsperrholz als Material gewählt.  Die hiermit erstellten Pläne lassen sich einfach zusammenstecken und sind optisch ansprechend. Für die Breite und Tiefe wurde sich nach der Bodenplatte gerichtet, theoretisch lassen sich die Maße abändern solange die Bodenplatte noch rein passt.
 
 <p align="center">
   <img width="400" height="600
   " src="images/microChange/mülleimer_seitlich.jpeg" />
 </p>
 
-Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik trennt. Die svg-Datei hierfür befindet sich [hier](../images/microChange/Konsole.svg). Da wir die Trennwand herausnehmen wollen, haben wir an beiden Seiten eine Art Schiene gebastelt:
+Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik trennt. Die svg-Datei hierfür befindet sich [hier](/images/microChange/Konsole.svg). Da wir die Trennwand herausnehmen wollen, haben wir an beiden Seiten eine Art Schiene gebastelt:
 
 <p align="center">
   <img width="300" height="400" src="images/microChange/schiene.jpeg" />
@@ -110,7 +122,8 @@ Die restliche Elektronik wird in dem Kompartment vor der Trennwand untergebracht
   <img width="250" height="400" src="images/microChange/arduino_eingebaut.jpeg" />
   <img width="250" height="400" src="images/microChange/elektronik_innen.jpeg" />
 </p>
-Nun können alle Holzwände zusammengesteckt und das Frontstück mit Holzleim gefestigt werden.
+Nun können alle Holzwände zusammengesteckt und das Frontstück inklusive Display mit Holzleim befestigt werden.
+
 
 # Installationsanleitung
 
