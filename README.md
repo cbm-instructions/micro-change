@@ -35,16 +35,16 @@ Als erstes muss der Raspberry Pi einsatzbereit gemacht werden. Die folgenden Sch
 
 1. Flashe die SD-Karte mit der aktuellsten stable Version von Raspbian bzw. Raspberry OS und stecke sie in den Raspberry Pi
 
-2. Öffne ein Terminal (`Strg + Alt + T`) und update die Software mit:
+2. Starte den Raspberry Pi und öffne ein Terminal (`Strg + Alt + T`) und update die Software mit:
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-3. Ändere die Datei `/boot/config.txt` wie hier auf der folgenden Website, unter dem Punkt `Software setting`, beschrieben https://www.waveshare.com/wiki/7inch_DSI_LCD  
+3. Ändere die Datei `/boot/config.txt` wie hier auf der folgenden Website, unter dem Punkt `Software setting`, beschrieben (https://www.waveshare.com/wiki/7inch_DSI_LCD)  
 
 **Kurze Zusammenfassung**
 
-Unkommentiere den folgenden Teil der Datei:
+Entkommentiere den folgenden Teil der Datei:
 ```
 #camera_auto_detect=1
 #dtoverlay=vc4-kms-v3d
@@ -82,7 +82,7 @@ sudo apt install arduino
 
 2. Wenn du es noch nicht getan hast, dann Klone das Git Repository für dieses Projekt mit:
 ```bash
-git clone <TODO: Repo URL einfügen>
+git clone git@github.com:cbm-instructions/micro-change.git
 ```
 
 3. Öffne die Arduino IDE und installiere die Library `HX711_ADC` von Olav Kallhovd (https://github.com/olkal/HX711_ADC) wie folgt:  
@@ -109,7 +109,7 @@ const int HX711_sck = 6;
 
 Starte jetzt die erste Kalibrierung. Klicke dafür auf den Button mit dem Pfeil. 
 
--- TODO: Bild mit button einfügen --
+<img src="images/run_button.png" />
 
 Um die Kalibrierung durchzuführen musst du den Serial Monitor öffnen. Klicke dazu auf `Tools > Serial Monitor`. Falls du die Meldung `ser_open(): can't open device "/dev/ttyACM0": Permission denied` bekommst, öffne ein Terminal und führe das folgende Kommando aus:
 ```bash
@@ -117,24 +117,37 @@ sudo chmod a+rwx /dev/ttyACM0
 ```
 Der Pfad in der Fehlermeldung kann auch abweichen. In diesem Fall sollte das obige Kommando mit dem entsprechneden Pfad ausgeführt werden.
 
+**Beispiel der Fehlermeldung:**
+
+<img src="images/tty_permission_denied.png" />
+
 Stelle den Serial Monitor auf den Port 57600. Du solltest jetzt eine Ausgabe bekommen. Befolge die Anweisungen der Ausgabe. Die Ausgabe einer kompletten Kalibrierung sieht wie folgt aus:
 
--- TODO: Füge Bild von Serial Monitor mit ganzer ausgabe ein --
+<img src="images/calibration/4_calibration_full.png" />
 
 Notiere den Wert der Kalibrierung für die erste Zelle.  
 **Beispiel:**
 ```
-LoadCell_1 (5/6) = 117.95
+LoadCell_1 (5/6) = 130.59
 ```
 
-Führe die Kalibrierung auch für die zweite Wägezelle mit den Pins 10 und 11 durch. Danach solltest du 2 Werte für die Kalibrierung haben.  
+Führe die Kalibrierung auch für die zweite Wägezelle mit den Pins 10 und 11 durch. 
+Ändere sie für die zweite Kalibrierung auf:
+```c++
+//pins:
+const int HX711_dout = 10;
+const int HX711_sck = 11;
+```
+
+Danach solltest du 2 Werte für die Kalibrierung haben.
+
 **Beispiel**
 ```
-LoadCell_1 (5/6)   = 117.95
-LoadCell_2 (10/11) = 107.90
+LoadCell_1 (5/6)   = 130.59
+LoadCell_2 (10/11) = 117.95
 ```
 
-Jetzt müssen die Werte der Pins und der Kalibrierungen nur noch in das Programm für die Waage eingefügt werden. Hierzu muss die Datei `calibrated_loadcell_scale.ino` im `arduino-scale/calibrated_loadcell_scale` des Projektordners und ändere die Datei wie folgt ab:
+Jetzt müssen die Werte der Pins und der Kalibrierungen nur noch in das Programm für die Waage eingefügt werden. Öffne hierzu die Datei `micro-change/arduino-scale/calibrated_loadcell_scale/calibrated_loadcell_scale.ino` und ändere die sie wie folgt ab:
 ```c++
 const int HX711_dout_1 = 5;  // Ändere von 4 -> 5
 const int HX711_sck_1 = 6;   // Ändere von 5 -> 6
@@ -147,11 +160,15 @@ void setup() {
   
   // ... snippet ...
 
-  calibrationValue_1 = 117.10; // Kalibrierung für 1. Wägezelle
-  calibrationValue_2 = 127.69; // Kalibrierung für 2. Wägezelle
+  calibrationValue_1 = 130.59; // Kalibrierung für 1. Wägezelle
+  calibrationValue_2 = 117.95; // Kalibrierung für 2. Wägezelle
 ```
 
-Speichere nun die Datei und spiele das Programm auf den Arduino indem du den Pfeil-Button drückst. Wenn das Programm ohne Fehler auf den Arduino geladen wurde, kannst du diesen von deinem Laptop/Deskotp entfernen und an den Raspberry Pi anschließen.
+Speichere nun die Datei und spiele das Programm auf den Arduino indem du den Pfeil-Button drückst.
+
+<img src="images/run_button.png" />
+
+Wenn das Programm ohne Fehler auf den Arduino geladen wurde, kannst du diesen von deinem Laptop/Desktop entfernen und an den Raspberry Pi anschließen.
 
 ## Installation der Anwendung auf dem Raspberry Pi
 
@@ -181,7 +198,7 @@ git clone git@github.com:cbm-instructions/micro-change.git
 
 - Wechsle in den Ordner des Repos und dann in den Order 'bin-client'
 ```bash
-cd <TODO: Richtiger Ordnername>/bin-client
+cd micro-change/bin-client
 ```
 
 - Installiere die benötigten Node-Packages
@@ -199,7 +216,8 @@ cd ..
 chmod a+x build_and_bundle_for_usb.sh
 ```
 
-- Führe die Datei `build_and_bundle_for_usb.sh` aus. Bevor du die Datei ausführst stelle sicher, dass sich in `bin-client` kein Ordner mit dem Namen `dist befindet`, falls doch lösche ihn. Dieser Prozess kann ein wenig dauern.
+- Führe die Datei `build_and_bundle_for_usb.sh` aus. Bevor du die Datei ausführst stelle sicher, dass sich in `bin-client` kein Ordner mit dem Namen `dist` befindet, falls doch lösche ihn. Dieser Prozess kann ein wenig dauern.  
+**Befehl:**
 ```bash
 ./build_and_bundle_for_usb.sh
 ```
@@ -225,3 +243,20 @@ Wenn `setup.sh` erfolgreich ausgeführt wurde, kannst du die Anwendung durch die
 ```bash
 ./run.sh
 ```
+
+Falls `run.sh` die Anwendung nicht vollständig startet tue folgendes:
+
+1. Öffne zwei Terminalfenster (`Strg + Alt + T`)
+
+2. Im ersten Terminalfenster, navigiere nach `ben_bundle/scale-data-recorder` und führe folgenden Befehlt aus:
+```bash
+pip3 install --editable . && python3 recorder.py
+```
+
+3. Im zweiten Terminalfenster, navigiere in den von `setup.sh` erstellten Ordner `ben_bundle/squashfs-root` und führe folgenden Befehl aus:
+```bash
+./bin-client
+```
+
+Die Anwendung sollte nun vollständig starten.  
+**Glückwunsch!** Du kannst nun BEN verwenden und deinem Ziel nach einer besseren Umwelt ein Stück näher kommen.
