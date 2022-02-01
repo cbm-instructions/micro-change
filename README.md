@@ -50,6 +50,7 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 - 8 Schrauben und 8 Muttern 
 - Holzleim
 - Klebeband
+- Isolierband
 - Lötzinn
 
 
@@ -71,7 +72,7 @@ Die Verkabelung kann folgender Grafik entnommen werden:
   <img width="600" height="600"
   src="images/microChange/microChange_schaltplan.png" />
 	
-Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwendet eine fertige Schnittstelle, bei der man die Kabel nur einstecken muss. Kostenpunkt für letzteres sind ca 5€. Nach dem Anschluss aller Kabel sollte das in etwa so aussehen:
+Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwendet eine fertige Schnittstelle, bei der man die Kabel nur einstecken muss. Kostenpunkt für letzteres sind ca 5€. Für mehr Stabilität, insbesondere an den Lötstellen, sollte man die Kabel mit Isolierband fixieren. Nach dem Anschluss aller Kabel sollte das in etwa so aussehen:
 	
   <p align="center">
   <img width="550" height="500"
@@ -111,12 +112,10 @@ Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für d
 Zuerst wird das Display auf der Frontstück des Mülleimers geschraubt. Hierfür sollte vorgebohrt werden, damit das Holz nicht bricht.
 </p>
 <p align="center">
-  <img width="400" height="300" src="images/microChange/front.jpeg" />
+ <img width="400" height="300" src="images/microChange/front.jpeg" />
+ <img width="400" height="300" src="images/microChange/front_display.jpeg" />
 </p>
-</p>
-<p align="center">
-  <img width="400" height="300" src="images/microChange/front_display.jpeg" />
-</p>
+
 Die restliche Elektronik wird in dem Kompartment vor der Trennwand untergebracht. Dabei sollte kein starker Zug auf den Kabeln sein.
 <p align="center">
   <img width="250" height="400" src="images/microChange/arduino_eingebaut.jpeg" />
