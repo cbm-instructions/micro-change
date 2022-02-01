@@ -2,6 +2,8 @@
 /.data
 */icon
 */dist
+*/ben_bundle
+/ben_bundle
 
 /.idea
 /bin-client/scale-sample-data/.data/**
