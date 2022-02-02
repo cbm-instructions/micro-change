@@ -3,11 +3,12 @@
 <!-- TOC -->
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [ How to build Ben the Bin](#how-to-build-ben-the-bin)
-  - [Unser Produkt](#unser-produkt)
+  - [Unser Projekt](#unser-projekt)
   - [Material](#material)
   - [Werkzeuge](#werkzeuge)
   - [Empfohlene Vorkenntnisse](#empfohlene-vorkenntnisse)
   - [Bauanleitung](#bauanleitung)
+    - [Verkabelung](#verkabelung)
     - [Die Bodenplatte bauen](#die-bodenplatte-bauen)
     - [Den Mülleimer bauen](#den-mülleimer-bauen)
       - [Einbau der Elektronik](#einbau-der-elektronik)
@@ -22,19 +23,19 @@
     - [Benötigte Utensilien](#benötigte-utensilien)
     - [Benötigte Software auf dem Raspberry Pi](#benötigte-software-auf-dem-raspberry-pi)
     - [Build and Run](#build-and-run)
-  - [Ausblick](#ausblick)
+- [Ausblick](#ausblick)
 <!-- /TOC -->
 
 
 #  How to build Ben the Bin
-Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich dafür auf die Müllproduktion eines Haushalts fokussiert. Mit unserem Produkt zeigen wir dem Nutzer diese auf und schaffen Anreize, das Verhalten nachhaltig positiv zu verändern.
+Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich dafür auf die Müllproduktion eines Haushalts fokussiert. Nutzern und Nutzerinnen soll ihre Müllproduktion aufgezeigt werden, um dann durch direktes positives und negatives Feedback, ihr Verhalten zu ändern.
 
 <p align="center">
   <img width="400" height="650" src="images/microChange/Ben_the_bin.png" />
 </p>
 
-## Unser Produkt
-*Ben* der smarte Mülleimer eignet sich am Besten für Papier- und Verpackungsmüll. In der Basis des smarten Mülleimers befinden sich Wägezellen, da wir die Müllproduktion anhand des Gewichts ermitteln. Dem Nutzer werden auf einem Display Statistiken und Errungenschaften angezeigt. Er kann Punkte sammeln, wenn er sein Konsumverhalten zum positiven verbessert bzw. sie bei Fehlverhalten wieder verlieren. Achievements wie *Baumtöter* visualisieren dies.
+## Unser Projekt
+*Ben* der smarte Mülleimer eignet sich am Besten für Papier- und Verpackungsmüll. In der Basis des smarten Mülleimers befinden sich Wägezellen, da wir die Müllproduktion anhand des Gewichts ermitteln. Dem Nutzern und Nutzerinnen werden auf einem Display Statistiken und Errungenschaften angezeigt. Durch Achievements sollen Nutzer*innen zu einem bewussteren und besseren Umgang mit ihrem Müll motiviert werden. 
 
 ## Material
 
@@ -53,7 +54,6 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 - Isolierband
 - Lötzinn
 
-
 ## Werkzeuge
 - Lasercutter
 - Lötkolben
@@ -69,30 +69,32 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 ### Verkabelung
 Die Verkabelung kann folgender Grafik entnommen werden:
 <p align="center">
-  <img width="600" height="600"
-  src="images/microChange/microChange_schaltplan.png" />
+  <img width="600" height="600" src="images/microChange/microChange_schaltplan.png" />
+</p>
 	
 Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwendet eine fertige Schnittstelle, bei der man die Kabel nur einstecken muss. Kostenpunkt für letzteres sind ca 5€. Für mehr Stabilität, insbesondere an den Lötstellen, sollte man die Kabel mit Isolierband fixieren. Nach dem Anschluss aller Kabel sollte das in etwa so aussehen:
 	
-  <p align="center">
-  <img width="550" height="500"
-  src="images/microChange/schaltplan.jpeg" />
-  
+<p align="center">
+  <img width="550" height="500" src="images/microChange/schaltplan.jpeg" />
+</p>
+
 ### Die Bodenplatte bauen
-Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate mit den Maßen TODO: Maße klären 20 x 20cm?. 
+Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Dafür lasercutten wir zwei Quadrate mit den Maßen 19x19 cm. 
 Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt. Auf der linken Abbildung wurden allerdings zu viele Löcher gebohrt; man benötig nur 4 Löcher, von denen sich je 2 schräg gegenüberstehen.
+
 <p align="center">
   <img width="350" height="350" src="images/microChange/bodenplatte.jpg" />
   <img width="350" height="350" src="images/microChange/waegzellen.jpeg" />
 </p>
+
 Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Lasercutten angeklebt. Ansonsten würde die Bodenplatte wackeln. Auf der Oberseite ist dies nicht zwingend nötig. So sieht das ganze später von oben aus:
-</p>
+
 <p align="center">
   <img width="350" height="350" src="images/microChange/oben.jpeg" />
 </p>
 
 ### Den Mülleimer bauen
-Die [.svg Datei](/images/microChange/Konsole.svg) hierfür wurde auf [festi.info](https://www.festi.info/boxes.py/)  erstellt. Dabei haben wir das Preset _Console2_ ausgewählt, weil wir die Schräge für unser Display wollten. Wichtig dabei war, den Parameter  _thickness_ auf unser Holz anzupassen. _Burn correction_ wurde von 0,1 auf 0,09 reduziert. Dadurch hat man beim Zusammenstecken etwas mehr Spiel, was bei der Größe unserer Box hilfreich ist. Vor dem Lasercutten sollte man sich vergewissern, dass die Linienstärke bei *0,035mm* und die Farbe schwarz (*RGB000*) ist. Dies sieht man z.B. in _Adobe Illustrator_ oder _Inkscape._ Wir haben Pappelsperrholz als Material gewählt.  Die hiermit erstellten Pläne lassen sich einfach zusammenstecken und sind optisch ansprechend. Für die Breite und Tiefe wurde sich nach der Bodenplatte gerichtet, theoretisch lassen sich die Maße abändern solange die Bodenplatte noch rein passt.
+Die [.svg Datei](/images/microChange/Konsole.svg) hierfür wurde auf [festi.info](https://www.festi.info/boxes.py/) erstellt. Dabei haben wir das Preset _Console2_ ausgewählt, weil wir die Schräge für unser Display wollten. Wichtig dabei war, den Parameter  _thickness_ auf unser Holz anzupassen. _Burn correction_ wurde von 0,1 auf 0,09 reduziert. Dadurch hat man beim Zusammenstecken etwas mehr Spiel, was bei der Größe unserer Box hilfreich ist. Vor dem Lasercutten sollte man sich vergewissern, dass die Linienstärke bei *0,035mm* und die Farbe schwarz (*RGB000*) ist. Dies sieht man z.B. in _Adobe Illustrator_ oder _Inkscape._ Wir haben Pappelsperrholz als Material gewählt.  Die hiermit erstellten Pläne lassen sich einfach zusammenstecken und sind optisch ansprechend. Für die Breite und Tiefe wurde sich nach der Bodenplatte gerichtet, theoretisch lassen sich die Maße abändern solange die Bodenplatte noch rein passt.
 
 <p align="center">
   <img width="400" height="600
@@ -105,7 +107,7 @@ Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik tr
   <img width="300" height="400" src="images/microChange/schiene.jpeg" />
 </p>
 
-Wichtig ist,  alles erst zusammenzustecken, wenn der nächste Schritt, der Einbau der Elektronik vollendet ist.
+Wichtig ist, alles erst zusammenzustecken, wenn der nächste Schritt, der Einbau der Elektronik vollendet ist.
 Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für das Netzkabel sowie ein Rechteck mit den Maßen 21,7 x 1,7cm ausgeschnitten. Letzteres schließt den Spalt zwischen Trennwand und Display. Dies ist allerdings nur Kosmetik.
 
 #### Einbau der Elektronik
@@ -122,7 +124,6 @@ Die restliche Elektronik wird in dem Kompartment vor der Trennwand untergebracht
   <img width="250" height="400" src="images/microChange/elektronik_innen.jpeg" />
 </p>
 Nun können alle Holzwände zusammengesteckt und das Frontstück inklusive Display mit Holzleim befestigt werden.
-
 
 # Installationsanleitung
 
@@ -268,7 +269,7 @@ LoadCell_1 (5/6)   = 130.59
 LoadCell_2 (10/11) = 117.95
 ```
 
-Jetzt müssen die Werte der Pins und der Kalibrierungen nur noch in das Programm für die Waage eingefügt werden. Öffne hierzu die Datei `micro-change/arduino-scale/calibrated_loadcell_scale/calibrated_loadcell_scale.ino` und ändere die sie wie folgt ab:
+Jetzt müssen die Werte der Pins und der Kalibrierungen nur noch in das Programm für die Waage eingefügt werden. Öffne hierzu die Datei `micro-change/arduino-scale/calibrated_loadcell_scale/calibrated_loadcell_scale.ino` und ändere sie wie folgt ab:
 ```c++
 const int HX711_dout_1 = 5;  // Ändere von 4 -> 5
 const int HX711_sck_1 = 6;   // Ändere von 5 -> 6
@@ -384,8 +385,5 @@ pip3 install --editable . && python3 recorder.py
 Die Anwendung sollte nun vollständig starten.  
 **Glückwunsch!** Du kannst nun BEN verwenden und deinem Ziel nach einer besseren Umwelt ein Stück näher kommen.
 
-## Ausblick
-Als Nächstes wäre eine Vernetzung mit anderen smarten Mülleimern denkbar. So könnte man sich mit Freunden, Fremden und dem aktuellen Durchschnitt vergleichen. Da die Messdaten maschinell lesbar sind, können sie auch in andere Anwedungen und bestehende SmartHome-Systemen eingebunden werden. 
-Eine feinere Unterscheidung des Abfalls mittels Bilderkennung und maschinellem Lernen ist ebenfalls denkbar aber nicht trivial umzusetzen.
-
-Die Basis mit den Wägezellen hat sich als sehr genau bewiesen und ist  damit auch für andere Anwendungszwecke geeignet.
+# Ausblick
+Als Nächstes wäre eine Vernetzung mit anderen smarten Mülleimern denkbar. So könnte man sich mit Freunden, Fremden und dem aktuellen Durchschnitt vergleichen. Da die Messdaten maschinell lesbar sind, können sie auch in andere Anwedungen und bestehende SmartHome-Systemen eingebunden werden. Durch die Einführung eines Punktesystems in den Achievements könnten Nutzer*innen, durch einen kompetetiven Aspekt, noch mehr zu einem positiven Verhalten motiviert werden.
