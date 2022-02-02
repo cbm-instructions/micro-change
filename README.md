@@ -1,3 +1,12 @@
+---
+title: "Ben: Kenne deinen Müll"
+categories: instructions
+layout: post
+date:   2022-02-02 09:51:12 +0200
+---
+
+Wenn du schon immer wissen wolltest wie viel Müll du produzierst, dann hilft dir *Ben*. *Ben* misst wie viel Müll du produzierst und gibt dir Feedback darüber.
+
 # Inhaltsverzeichnis
 
 <!-- TOC -->
@@ -31,7 +40,7 @@
 Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich dafür auf die Müllproduktion eines Haushalts fokussiert. Nutzern und Nutzerinnen soll ihre Müllproduktion aufgezeigt werden, um dann durch direktes positives und negatives Feedback, ihr Verhalten zu ändern.
 
 <p align="center">
-  <img width="400" height="650" src="images/micro-change/Ben_the_bin.png" />
+  <img width="400" height="650" src="/images/micro-change/Ben_the_bin.png" />
 </p>
 
 ## Unser Projekt
@@ -69,13 +78,13 @@ Thema des diesjährigen CBM-Projekts ist Nachhaltigkeit. Unsere Gruppe hat sich 
 ### Verkabelung
 Die Verkabelung kann folgender Grafik entnommen werden:
 <p align="center">
-  <img width="600" height="600" src="images/micro-change/microChange_schaltplan.png" />
+  <img width="600" height="600" src="/images/micro-change/microChange_schaltplan.png" />
 </p>
 	
 Entweder man lötet die Kabel von der Wägezelle zum HX711 ADC-Modul oder verwendet eine fertige Schnittstelle, bei der man die Kabel nur einstecken muss. Kostenpunkt für letzteres sind ca 5€. Für mehr Stabilität, insbesondere an den Lötstellen, sollte man die Kabel mit Isolierband fixieren. Nach dem Anschluss aller Kabel sollte das in etwa so aussehen:
 	
 <p align="center">
-  <img width="550" height="500" src="images/micro-change/schaltplan.jpeg" />
+  <img width="550" height="500" src="/images/micro-change/schaltplan.jpeg" />
 </p>
 
 ### Die Bodenplatte bauen
@@ -83,14 +92,14 @@ Jede Wägzelle muss mit einer geraden Fläche oben und unten verschaubt sein. Da
 Die Wägezellen werden parallel zueinander mit passenden Schrauben und Muttern befestigt. Auf der linken Abbildung wurden allerdings zu viele Löcher gebohrt; man benötig nur 4 Löcher, von denen sich je 2 schräg gegenüberstehen.
 
 <p align="center">
-  <img width="350" height="350" src="images/micro-change/bodenplatte.jpg" />
-  <img width="350" height="350" src="images/micro-change/waegzellen.jpeg" />
+  <img width="350" height="350" src="/images/micro-change/bodenplatte.jpg" />
+  <img width="350" height="350" src="/images/micro-change/waegzellen.jpeg" />
 </p>
 
 Da die Schrauben überstehen, wurden auf der Unterseite noch Reststücke vom Lasercutten angeklebt. Ansonsten würde die Bodenplatte wackeln. Auf der Oberseite ist dies nicht zwingend nötig. So sieht das ganze später von oben aus:
 
 <p align="center">
-  <img width="350" height="350" src="images/micro-change/oben.jpeg" />
+  <img width="350" height="350" src="/images/micro-change/oben.jpeg" />
 </p>
 
 ### Den Mülleimer bauen
@@ -98,13 +107,13 @@ Die [.svg Datei](/images/micro-change/Konsole.svg) hierfür wurde auf [festi.inf
 
 <p align="center">
   <img width="400" height="600
-  " src="images/micro-change/mülleimer_seitlich.jpeg" />
+  " src="/images/micro-change/mülleimer_seitlich.jpeg" />
 </p>
 
 Zusätzlich haben wir eine Trennwand ausgeschnitten, die Müll und Elektronik trennt. Die svg-Datei hierfür befindet sich [hier](/images/micro-change/Konsole.svg). Da wir die Trennwand herausnehmen wollen, haben wir an beiden Seiten eine Art Schiene gebastelt:
 
 <p align="center">
-  <img width="300" height="400" src="images/micro-change/schiene.jpeg" />
+  <img width="300" height="400" src="/images/micro-change/schiene.jpeg" />
 </p>
 
 Wichtig ist, alles erst zusammenzustecken, wenn der nächste Schritt, der Einbau der Elektronik vollendet ist.
@@ -114,14 +123,14 @@ Um das ganze optisch abzurunden wurde auf der Rückseite ein kleines Loch für d
 Zuerst wird das Display auf der Frontstück des Mülleimers geschraubt. Hierfür sollte vorgebohrt werden, damit das Holz nicht bricht.
 </p>
 <p align="center">
- <img width="400" height="300" src="images/micro-change/front.jpeg" />
- <img width="400" height="300" src="images/micro-change/front_display.jpeg" />
+ <img width="400" height="300" src="/images/micro-change/front.jpeg" />
+ <img width="400" height="300" src="/images/micro-change/front_display.jpeg" />
 </p>
 
 Die restliche Elektronik wird in dem Kompartment vor der Trennwand untergebracht. Dabei sollte kein starker Zug auf den Kabeln sein.
 <p align="center">
-  <img width="250" height="400" src="images/micro-change/arduino_eingebaut.jpeg" />
-  <img width="250" height="400" src="images/micro-change/elektronik_innen.jpeg" />
+  <img width="250" height="400" src="/images/micro-change/arduino_eingebaut.jpeg" />
+  <img width="250" height="400" src="/images/micro-change/elektronik_innen.jpeg" />
 </p>
 Nun können alle Holzwände zusammengesteckt und das Frontstück inklusive Display mit Holzleim befestigt werden.
 
@@ -226,7 +235,7 @@ const int HX711_sck = 6;
 Starte jetzt die erste Kalibrierung. Klicke dafür auf den Button mit dem Pfeil. 
 
 <p align="center">
-   <img src="images/micro-change/installation/run_button.png" />
+   <img src="/images/micro-change/installation/run_button.png" />
 </p>
 
 Um die Kalibrierung durchzuführen musst du den Serial Monitor öffnen. Klicke dazu auf `Tools > Serial Monitor`. Falls du die Meldung `ser_open(): can't open device "/dev/ttyACM0": Permission denied` bekommst, öffne ein Terminal und führe das folgende Kommando aus:
@@ -238,13 +247,13 @@ Der Pfad in der Fehlermeldung kann auch abweichen. In diesem Fall sollte das obi
 **Beispiel der Fehlermeldung:**
 
 <p align="center">
-  <img src="images/micro-change/installation/tty_permission_denied.png" />
+  <img src="/images/micro-change/installation/tty_permission_denied.png" />
 </p>
 
 Stelle den Serial Monitor auf den Port 57600. Du solltest jetzt eine Ausgabe bekommen. Befolge die Anweisungen der Ausgabe. Die Ausgabe einer kompletten Kalibrierung sieht wie folgt aus:
 
 <p align="center">
-   <img src="images/micro-change/installation/calibration/4_calibration_full.png" />
+   <img src="/images/micro-change/installation/calibration/4_calibration_full.png" />
 </p>
 
 Notiere den Wert der Kalibrierung für die erste Zelle.  
@@ -289,7 +298,7 @@ void setup() {
 Speichere nun die Datei und spiele das Programm auf den Arduino indem du den Pfeil-Button drückst.
 
 <p align="center">
-   <img src="images/micro-change/installation/run_button.png" />
+   <img src="/images/micro-change/installation/run_button.png" />
 </p>
 
 Wenn das Programm ohne Fehler auf den Arduino geladen wurde, kannst du diesen von deinem Laptop/Desktop entfernen und an den Raspberry Pi anschließen.
